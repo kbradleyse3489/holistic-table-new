@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import './AppStyles.css';
 import {
   BrowserRouter as Router,
@@ -5,17 +6,645 @@ import {
   Route,
   NavLink
 } from 'react-router-dom';
+// --- Wellness Wins Page Component ---
+function WellnessWins() {
+  return (
+    <div style={{ maxWidth: 700, margin: '0 auto', padding: '40px 0', fontFamily: 'Lora, Georgia, Times New Roman, serif' }}>
+      <h1 style={{ color: '#4A7C59', fontFamily: 'Cormorant Garamond, serif', fontSize: '2.3rem', marginBottom: 12, textAlign: 'center' }}>Wellness Wins</h1>
+      <div style={{ fontSize: '1.18rem', color: '#222', marginBottom: 30, textAlign: 'center' }}>
+        Real stories. Real results. See how our sea moss, holistic meals, and wellness products are transforming lives.
+      </div>
+      <h2 style={{ color: '#F9B233', fontFamily: 'Cormorant Garamond, serif', fontSize: '1.4rem', marginBottom: 18, textAlign: 'center' }}>Featured Testimonials</h2>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 28, marginBottom: 40 }}>
+        <blockquote style={{ background: '#f8f8f8', borderLeft: '5px solid #F9B233', borderRadius: 12, padding: '18px 24px', fontStyle: 'italic', color: '#4A7C59', fontSize: 18 }}>
+          “The sea moss advanced infinite age helps boost your immunity.”
+          <div style={{ fontWeight: 500, color: '#888', fontSize: 15, marginTop: 8 }}>— Amazon Reviewer</div>
+        </blockquote>
+        <blockquote style={{ background: '#f8f8f8', borderLeft: '5px solid #F9B233', borderRadius: 12, padding: '18px 24px', fontStyle: 'italic', color: '#4A7C59', fontSize: 18 }}>
+          “It’s excellent for easing cold and flu symptoms and boosting the immune system—perfect for the whole family!”
+          <div style={{ fontWeight: 500, color: '#888', fontSize: 15, marginTop: 8 }}>— KB’s Vegan Kitchen Facebook Page</div>
+        </blockquote>
+        <blockquote style={{ background: '#f8f8f8', borderLeft: '5px solid #F9B233', borderRadius: 12, padding: '18px 24px', fontStyle: 'italic', color: '#4A7C59', fontSize: 18 }}>
+          “Great for erectile dysfunction and Libido in both Men & Women.”
+          <div style={{ fontWeight: 500, color: '#888', fontSize: 15, marginTop: 8 }}>— Facebook Group Feedback</div>
+        </blockquote>
+      </div>
+      <div style={{ background: '#FFF8E7', borderRadius: 14, padding: '28px 22px', textAlign: 'center', boxShadow: '0 2px 8px #f9b23322', marginBottom: 0 }}>
+        <h3 style={{ color: '#4A7C59', fontFamily: 'Cormorant Garamond, serif', fontSize: '1.2rem', marginBottom: 10 }}>Share Your Wellness Story</h3>
+        <div style={{ color: '#222', fontSize: 16, marginBottom: 16 }}>
+          We’d love to hear how The Holistic Table by KB has helped you! Whether it’s a favorite glow bowl, sea moss blend, tea, or pantry item—your story matters.
+        </div>
+        <a href="#" style={{ background: '#F9B233', color: '#fff', padding: '12px 32px', borderRadius: 22, fontWeight: 600, fontSize: 17, textDecoration: 'none', boxShadow: '0 2px 8px #f9b23333', transition: 'background 0.2s' }}>Click Here to Share Your Experience</a>
+      </div>
+    </div>
+  );
+}
+
+// --- Fresh Press Page Component ---
+function FreshPress() {
+  // Example data for posts
+  const featuredPost = {
+    title: "Glow Goddess Bowl (Coming Soon)",
+    preview: "Quinoa, roasted sweet potatoes (Creole-spiced), crispy chickpeas, steamed kale, avocado, pomegranate seeds, and tahini-lemon dressing.",
+  image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=600&q=80", // Plant-based bowl image
+  link: "/menu#glow-goddess-bowl",
+    category: "VIP Glow Kitchen"
+  };
+  const posts = [
+    {
+      title: "5-Minute Mindfulness Rituals for Busy Mornings",
+      preview: "Start your day with clarity and calm using these quick, effective mindfulness practices.",
+      image: "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80",
+      link: "#",
+      category: "Wellness Tips"
+    },
+    {
+      title: "Rainbow Veggie Wraps: Lunch in Under 10 Minutes",
+      preview: "Colorful, crunchy, and packed with nutrients—these wraps are perfect for meal prep or on-the-go lunches.",
+      image: "https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&fit=crop&w=600&q=80", // Colorful veggie wraps image
+      link: "#",
+      category: "Recipes"
+    },
+    {
+      title: "KB’s Favorite Summer Skincare Essentials",
+      preview: "Discover the clean, plant-based products I’m loving for glowing, hydrated skin all season long.",
+      image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80",
+      link: "#",
+      category: "Product Highlights"
+    },
+    {
+      title: "Glow Goddess Bowl (Coming Soon)",
+      preview: "Quinoa, roasted sweet potatoes (Creole-spiced), crispy chickpeas, steamed kale, avocado, pomegranate seeds, and tahini-lemon dressing.",
+  image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=600&q=80", // Plant-based bowl image
+      link: "/menu#glow-goddess-bowl",
+      category: "VIP Glow Kitchen"
+    },
+    {
+      title: "How to Build a Balanced Plant-Based Plate",
+      preview: "A simple guide to creating nourishing, satisfying meals with every food group represented.",
+  image: "https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&fit=crop&w=600&q=80", // Plant-based plate image
+      link: "#",
+      category: "Wellness Tips"
+    }
+  ];
+  const categories = [
+    { name: "Recipes", icon: "🥗" },
+    { name: "Wellness Tips", icon: "🧘‍♀️" },
+    { name: "Product Highlights", icon: "✨" }
+  ];
+  return (
+    <div style={{ maxWidth: 800, margin: '0 auto', padding: '32px 0' }}>
+      {/* Hero Section */}
+      <div style={{ textAlign: 'center', marginBottom: 36 }}>
+        <h1 style={{ fontFamily: 'Cormorant Garamond, serif', color: '#4A7C59', fontSize: '2.5rem', marginBottom: 8 }}>Fresh Press</h1>
+        <div style={{ color: '#555', fontSize: '1.2rem', marginBottom: 18 }}>
+          Your go to source for fresh recipes, wellness tips, and KB’s latest updates.
+        </div>
+  <a href="#newsletter" style={{ background: '#F9B233', color: '#fff', padding: '12px 28px', borderRadius: 24, fontWeight: 600, fontSize: 18, textDecoration: 'none', boxShadow: '0 2px 8px #f9b23333', transition: 'background 0.2s' }}>Join the Table</a>
+      </div>
+
+      {/* Categories */}
+      <div style={{ display: 'flex', justifyContent: 'center', gap: 32, marginBottom: 30 }}>
+        {categories.map(cat => (
+          <div key={cat.name} style={{ display: 'flex', alignItems: 'center', fontSize: 18, color: '#4A7C59', background: '#F6F6F6', borderRadius: 18, padding: '6px 18px', boxShadow: '0 1px 4px #eee' }}>
+            <span style={{ fontSize: 22, marginRight: 8 }}>{cat.icon}</span> {cat.name}
+          </div>
+        ))}
+      </div>
+
+      {/* Featured Post */}
+      <div style={{ background: '#FFF8E7', borderRadius: 18, boxShadow: '0 2px 12px #f9b23322', display: 'flex', alignItems: 'center', marginBottom: 38, overflow: 'hidden' }}>
+        <img src={featuredPost.image} alt={featuredPost.title} style={{ width: 140, height: 140, objectFit: 'cover', borderRadius: '18px 0 0 18px' }} />
+        <div style={{ padding: 20 }}>
+          <div style={{ color: '#F9B233', fontWeight: 700, fontSize: 15, marginBottom: 4 }}>{featuredPost.category} • Featured</div>
+          <div style={{ fontSize: 20, fontWeight: 700, color: '#4A7C59', marginBottom: 6 }}>{featuredPost.title}</div>
+          <div style={{ color: '#555', fontSize: 15, marginBottom: 10 }}>{featuredPost.preview}</div>
+          <a href={featuredPost.link} style={{ color: '#F9B233', fontWeight: 600, textDecoration: 'underline', fontSize: 15 }}>Read More</a>
+        </div>
+      </div>
+
+      {/* Latest Posts */}
+      <div style={{ marginBottom: 44 }}>
+        <h2 style={{ color: '#4A7C59', fontFamily: 'Cormorant Garamond, serif', fontSize: '1.6rem', marginBottom: 18 }}>Latest Posts</h2>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 28 }}>
+          {posts.slice(0, 4).map(post => (
+            <div key={post.title} style={{ background: '#fff', borderRadius: 16, boxShadow: '0 1px 8px #eee', padding: 0, overflow: 'hidden', display: 'flex', flexDirection: 'column', minHeight: 220 }}>
+              <img src={post.image} alt={post.title} style={{ width: '100%', height: 110, objectFit: 'cover' }} />
+              <div style={{ padding: '14px 16px 18px 16px', flex: 1 }}>
+                <div style={{ color: '#F9B233', fontWeight: 600, fontSize: 14, marginBottom: 2 }}>{post.category}</div>
+                <div style={{ fontSize: 17, fontWeight: 700, color: '#4A7C59', marginBottom: 4 }}>{post.title}</div>
+                <div style={{ color: '#555', fontSize: 14, marginBottom: 10 }}>{post.preview}</div>
+                <a href={post.link} style={{ color: '#F9B233', fontWeight: 600, textDecoration: 'underline', fontSize: 14 }}>Read More</a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Newsletter Sign-Up Block */}
+      <div id="newsletter" style={{ background: '#F6F6F6', borderRadius: 18, padding: '32px 24px', textAlign: 'center', boxShadow: '0 1px 8px #eee', maxWidth: 500, margin: '0 auto' }}>
+        <div style={{ fontSize: 20, color: '#4A7C59', fontWeight: 700, marginBottom: 10 }}>Get free recipes, discounts, and wellness tips straight to your inbox.</div>
+        <form style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }} onSubmit={e => { e.preventDefault(); alert('Thank you for signing up!'); }}>
+          <input type="email" required placeholder="Your email address" style={{ padding: '10px 16px', borderRadius: 8, border: '1px solid #ccc', fontSize: 16, width: 260, marginBottom: 0 }} />
+          <button type="submit" style={{ background: '#F9B233', color: '#fff', border: 'none', borderRadius: 8, padding: '10px 28px', fontWeight: 600, fontSize: 16, cursor: 'pointer', boxShadow: '0 1px 4px #f9b23333' }}>Sign Me Up</button>
+        </form>
+      </div>
+    </div>
+  );
+}
+
+
+// --- FULL PAGE COMPONENTS RESTORED ---
+
+// Shop (The Pantry)
+function Shop() {
+  return (
+    <div style={{ padding: '48px 16px', maxWidth: 900, margin: '0 auto', fontFamily: 'Lora, Georgia, Times New Roman, serif', background: '#fff', borderRadius: 16, boxShadow: '0 2px 16px rgba(74,124,89,0.04)' }}>
+      <h2 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '2.2rem', color: '#4A7C59', marginBottom: 24, textAlign: 'center' }}>The Pantry</h2>
+      <p style={{ fontSize: '1.15rem', lineHeight: 1.7, color: '#222', margin: '0 auto 32px auto', maxWidth: 650, textAlign: 'center' }}>
+        Discover our curated collection of wellness essentials: sea moss gels, herbal teas, superfood mixes, and more. Each product is crafted with premium, plant based ingredients to support your health, energy, and daily rituals. Shop small batch, vegan, and nutrient rich pantry staples for a vibrant, holistic lifestyle.
+      </p>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 32, justifyContent: 'center' }}>
+        {/* 1. Vitality Glow Seamoss Gel – Pineapple Ginger + Curcumin */}
+        <div style={{ background: '#f8f8f8', borderRadius: 16, boxShadow: '0 2px 12px rgba(74,124,89,0.06)', maxWidth: 340, flex: '1 1 300px', padding: 24, textAlign: 'center', marginBottom: 24 }}>
+          <div style={{ marginBottom: 18 }}>
+            <div style={{ width: '100%', height: 160, background: '#eee', borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#bbb', fontSize: 18 }}>
+              Image Placeholder
+            </div>
+          </div>
+          <h3 style={{ color: '#4A7C59', fontSize: '1.15rem', marginBottom: 6 }}>Vitality Glow Seamoss Gel – Pineapple Ginger + Curcumin</h3>
+          <div style={{ color: '#888', fontSize: 15, marginBottom: 4 }}>16oz – $24</div>
+          <div style={{ fontSize: 15, marginBottom: 10 }}>
+            A golden burst of plant-powered vitality. Our Pineapple Ginger + Curcumin Seamoss Gel blends wildcrafted seamoss with tropical pineapple, zesty ginger, and anti-inflammatory curcumin for a vibrant wellness boost. Perfect in smoothies, teas, or straight off the spoon.
+          </div>
+          <div style={{ fontSize: 14, color: '#4A7C59', marginBottom: 6 }}><b>Benefits:</b> Immune support, anti-inflammatory, digestive health, energy boost.</div>
+          <div style={{ fontSize: 13, color: '#888', marginBottom: 10 }}><b>Storage:</b> Refrigerate after opening. Lasts 3–4 weeks chilled or freeze for up to 6 months.</div>
+          <a href="https://buy.stripe.com/test_4gM14ngRKaX69G16hhcEw00" target="_blank" rel="noopener noreferrer" style={{ background: '#4A7C59', color: '#fff', padding: '8px 24px', borderRadius: 20, textDecoration: 'none', fontWeight: 700 }}>Buy Now</a>
+        </div>
+        {/* 2. Radiance Revive Seamoss Gel – Pitaya Infused */}
+        <div style={{ background: '#f8f8f8', borderRadius: 16, boxShadow: '0 2px 12px rgba(74,124,89,0.06)', maxWidth: 340, flex: '1 1 300px', padding: 24, textAlign: 'center', marginBottom: 24 }}>
+          <div style={{ marginBottom: 18 }}>
+            <div style={{ width: '100%', height: 160, background: '#eee', borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#bbb', fontSize: 18 }}>
+              Image Placeholder
+            </div>
+          </div>
+          <h3 style={{ color: '#4A7C59', fontSize: '1.15rem', marginBottom: 6 }}>Radiance Revive Seamoss Gel – Pitaya Infused</h3>
+          <div style={{ color: '#888', fontSize: 15, marginBottom: 4 }}>16oz – $24</div>
+          <div style={{ fontSize: 15, marginBottom: 10 }}>
+            Bright, beautiful, and bursting with antioxidants—this pitaya (dragon fruit) infused seamoss gel supports skin glow, energy, and immunity with every spoonful. Sweet and subtly tropical, it’s the perfect daily wellness ritual.
+          </div>
+          <div style={{ fontSize: 14, color: '#4A7C59', marginBottom: 6 }}><b>Benefits:</b> Antioxidant-rich, supports skin health, boosts hydration, aids digestion.</div>
+          <div style={{ fontSize: 13, color: '#888', marginBottom: 10 }}><b>Storage:</b> Refrigerate after opening. Lasts 3–4 weeks chilled or freeze for up to 6 months.</div>
+          <a href="https://buy.stripe.com/test_bJebJ17ha1mwf0l0WXcEw01" target="_blank" rel="noopener noreferrer" style={{ background: '#4A7C59', color: '#fff', padding: '8px 24px', borderRadius: 20, textDecoration: 'none', fontWeight: 700 }}>Buy Now</a>
+        </div>
+        {/* 3. Calm & Restore Herbal Tea Blend */}
+        <div style={{ background: '#f8f8f8', borderRadius: 16, boxShadow: '0 2px 12px rgba(74,124,89,0.06)', maxWidth: 340, flex: '1 1 300px', padding: 24, textAlign: 'center', marginBottom: 24 }}>
+          <div style={{ marginBottom: 18 }}>
+            <div style={{ width: '100%', height: 160, background: '#eee', borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#bbb', fontSize: 18 }}>
+              Image Placeholder
+            </div>
+          </div>
+          <h3 style={{ color: '#4A7C59', fontSize: '1.15rem', marginBottom: 6 }}>Calm & Restore Herbal Tea Blend</h3>
+          <div style={{ color: '#888', fontSize: 15, marginBottom: 4 }}>4oz Pouch – $12</div>
+          <div style={{ fontSize: 15, marginBottom: 10 }}>
+            A soothing blend of chamomile, lemon balm, lavender, and spearmint crafted to quiet the mind, relax the body, and restore balance. Perfect for winding down at the end of the day or centering before meditation.
+          </div>
+          <div style={{ fontSize: 14, color: '#4A7C59', marginBottom: 6 }}><b>Benefits:</b> Stress relief, improved sleep, digestive support.</div>
+          <a href="https://buy.stripe.com/test_cNi4gz8le9T2aK50WXcEw02" target="_blank" rel="noopener noreferrer" style={{ background: '#4A7C59', color: '#fff', padding: '8px 24px', borderRadius: 20, textDecoration: 'none', fontWeight: 700 }}>Buy Now</a>
+        </div>
+        {/* 4. Tropical Vitality Tea – Soursop, Rooibos & Moringa */}
+        <div style={{ background: '#f8f8f8', borderRadius: 16, boxShadow: '0 2px 12px rgba(74,124,89,0.06)', maxWidth: 340, flex: '1 1 300px', padding: 24, textAlign: 'center', marginBottom: 24 }}>
+          <div style={{ marginBottom: 18 }}>
+            <div style={{ width: '100%', height: 160, background: '#eee', borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#bbb', fontSize: 18 }}>
+              Image Placeholder
+            </div>
+          </div>
+          <h3 style={{ color: '#4A7C59', fontSize: '1.15rem', marginBottom: 6 }}>Tropical Vitality Tea – Soursop, Rooibos & Moringa</h3>
+          <div style={{ color: '#888', fontSize: 15, marginBottom: 4 }}>4oz Pouch – $15</div>
+          <div style={{ fontSize: 15, marginBottom: 10 }}>
+            An uplifting, island-inspired blend featuring antioxidant-rich soursop leaf, earthy rooibos, and nutrient-packed moringa. Naturally caffeine-free with a light tropical flavor and a gentle energy lift.
+          </div>
+          <div style={{ fontSize: 14, color: '#4A7C59', marginBottom: 6 }}><b>Benefits:</b> Immune support, antioxidant boost, anti-inflammatory properties.</div>
+          <a href="https://buy.stripe.com/test_eVq4gzcBuaX6f0l8ppcEw07" target="_blank" rel="noopener noreferrer" style={{ background: '#4A7C59', color: '#fff', padding: '8px 24px', borderRadius: 20, textDecoration: 'none', fontWeight: 700 }}>Buy Now</a>
+        </div>
+        {/* 5. Loose Herbs – Moringa Leaf */}
+        <div style={{ background: '#f8f8f8', borderRadius: 16, boxShadow: '0 2px 12px rgba(74,124,89,0.06)', maxWidth: 340, flex: '1 1 300px', padding: 24, textAlign: 'center', marginBottom: 24 }}>
+          <div style={{ marginBottom: 18 }}>
+            <div style={{ width: '100%', height: 160, background: '#eee', borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#bbb', fontSize: 18 }}>
+              Image Placeholder
+            </div>
+          </div>
+          <h3 style={{ color: '#4A7C59', fontSize: '1.15rem', marginBottom: 6 }}>Loose Herbs – Moringa Leaf</h3>
+          <div style={{ color: '#888', fontSize: 15, marginBottom: 4 }}>4oz Bag – $10</div>
+          <div style={{ fontSize: 15, marginBottom: 10 }}>
+            Known as the “miracle tree,” moringa is rich in vitamins, minerals, and amino acids. Add to teas, smoothies, or soups for a nutritional boost.
+          </div>
+          <div style={{ fontSize: 14, color: '#4A7C59', marginBottom: 6 }}><b>Benefits:</b> Nutrient-dense superfood, energy support, immune health.</div>
+          <a href="https://buy.stripe.com/test_dRm00j6d61mwf0l9ttcEw04" target="_blank" rel="noopener noreferrer" style={{ background: '#4A7C59', color: '#fff', padding: '8px 24px', borderRadius: 20, textDecoration: 'none', fontWeight: 700 }}>Buy Now</a>
+        </div>
+        {/* 6. Loose Herbs – Burdock Root */}
+        <div style={{ background: '#f8f8f8', borderRadius: 16, boxShadow: '0 2px 12px rgba(74,124,89,0.06)', maxWidth: 340, flex: '1 1 300px', padding: 24, textAlign: 'center', marginBottom: 24 }}>
+          <div style={{ marginBottom: 18 }}>
+            <div style={{ width: '100%', height: 160, background: '#eee', borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#bbb', fontSize: 18 }}>
+              Image Placeholder
+            </div>
+          </div>
+          <h3 style={{ color: '#4A7C59', fontSize: '1.15rem', marginBottom: 6 }}>Loose Herbs – Burdock Root</h3>
+          <div style={{ color: '#888', fontSize: 15, marginBottom: 4 }}>4oz Bag – $14</div>
+          <div style={{ fontSize: 15, marginBottom: 10 }}>
+            A time-honored herb for detoxification and skin health, burdock root offers earthy depth to teas and tonics.
+          </div>
+          <div style={{ fontSize: 14, color: '#4A7C59', marginBottom: 6 }}><b>Benefits:</b> Liver support, skin health, anti-inflammatory properties.</div>
+          <a href="https://buy.stripe.com/test_7sY3cvfNG9T2aK5dJJcEw05" target="_blank" rel="noopener noreferrer" style={{ background: '#4A7C59', color: '#fff', padding: '8px 24px', borderRadius: 20, textDecoration: 'none', fontWeight: 700 }}>Buy Now</a>
+        </div>
+        {/* 7. Moringa Pancake & Waffle Mix (Vegan) */}
+        <div style={{ background: '#f8f8f8', borderRadius: 16, boxShadow: '0 2px 12px rgba(74,124,89,0.06)', maxWidth: 340, flex: '1 1 300px', padding: 24, textAlign: 'center', marginBottom: 24 }}>
+          <div style={{ marginBottom: 18 }}>
+            <div style={{ width: '100%', height: 160, background: '#eee', borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#bbb', fontSize: 18 }}>
+              Image Placeholder
+            </div>
+          </div>
+          <h3 style={{ color: '#4A7C59', fontSize: '1.15rem', marginBottom: 6 }}>Moringa Pancake & Waffle Mix (Vegan)</h3>
+          <div style={{ color: '#888', fontSize: 15, marginBottom: 4 }}>16oz Bag – $18</div>
+          <div style={{ fontSize: 15, marginBottom: 10 }}>
+            Wholesome meets delicious—this vegan pancake and waffle mix blends whole grain flour, coconut sugar, and moringa for a subtly sweet, nutrient-packed breakfast. Just add plant milk and a splash of oil for a quick, fluffy stack.
+          </div>
+          <div style={{ fontSize: 14, color: '#4A7C59', marginBottom: 6 }}><b>Benefits:</b> Antioxidants, plant-based protein, vitamins & minerals.</div>
+          <a href="https://buy.stripe.com/test_6oU3cv7haaX6cSd9ttcEw06" target="_blank" rel="noopener noreferrer" style={{ background: '#4A7C59', color: '#fff', padding: '8px 24px', borderRadius: 20, textDecoration: 'none', fontWeight: 700 }}>Buy Now</a>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Services (The Holistic Hub)
+function Services() {
+  return (
+    <div style={{ padding: '48px 16px', maxWidth: 900, margin: '0 auto', fontFamily: 'Lora, Georgia, Times New Roman, serif', background: '#fff', borderRadius: 16, boxShadow: '0 2px 16px rgba(74,124,89,0.04)' }}>
+      <h2 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '2.2rem', color: '#4A7C59', marginBottom: 18, textAlign: 'center' }}>The Holistic Hub</h2>
+      <div style={{ maxWidth: 700, margin: '0 auto', padding: '24px 0' }}>
+        <div style={{ marginBottom: 28 }}>
+          <div style={{ fontSize: '1.18rem', color: '#222', marginBottom: 14, textAlign: 'center' }}>
+            Welcome to The Holistic Hub, your digital library for plant based living, holistic wellness, and self care. Download free guides, explore premium ebooks, and discover resources to help you thrive on your wellness journey.
+          </div>
+          <h3 style={{ color: '#4A7C59', fontFamily: 'Cormorant Garamond, serif', fontSize: '1.3rem', marginBottom: 12, textAlign: 'center' }}>Categories You’ll Find Here</h3>
+          <ul style={{ color: '#4A7C59', fontSize: 16, marginBottom: 0, paddingLeft: 22, lineHeight: 1.7, textAlign: 'left', maxWidth: 500, margin: '0 auto' }}>
+            <li><b>Cookbooks:</b> Vegan, gluten-free, seasonal eating, and cultural-inspired recipes.</li>
+            <li><b>Holistic Guides:</b> Herbal remedies, mindfulness, stress relief, and natural wellness.</li>
+            <li><b>Self-Help Books:</b> Goal setting, confidence building, and daily rituals for a balanced life.</li>
+          </ul>
+        </div>
+        <h3 style={{ color: '#4A7C59', fontFamily: 'Cormorant Garamond, serif', fontSize: '1.5rem', marginBottom: 18 }}>📚 Always Free Resource</h3>
+        <div style={{ background: '#e8f5e9', borderRadius: 14, padding: 20, marginBottom: 28 }}>
+          <b>Resource:</b> "7-Day Plant-Powered Kickstart Guide"<br/>
+          <b>Description:</b> A starter guide for anyone looking to embrace plant-based eating with ease. Includes grocery list, 7 days of simple recipes, and wellness tips for a healthier lifestyle.<br/>
+          <b>Price:</b> FREE (Instant Download)<br/>
+          <b>Format:</b> PDF Download<br/>
+          <a href="#" style={{
+            display: 'inline-block',
+            background: '#4A7C59',
+            color: '#fff',
+            padding: '10px 28px',
+            borderRadius: 20,
+            textDecoration: 'none',
+            fontWeight: 700,
+            fontSize: 16,
+            marginTop: 14
+          }}>Download</a>
+        </div>
+        <h3 style={{ color: '#b94a48', fontFamily: 'Cormorant Garamond, serif', fontSize: '1.5rem', marginBottom: 18 }}>📖 Premium Ebook (Cookbook & Holistic Blend)</h3>
+        <div style={{ background: '#fffbe7', borderRadius: 14, padding: 20, marginBottom: 28 }}>
+          <b>Book Title:</b> "Glow from Within: The Holistic Vegan Cookbook"<br/>
+          <b>Description:</b> A beautifully curated ebook with 40+ vibrant vegan recipes, holistic lifestyle tips, herbal remedies, and self-care rituals.<br/>
+          <b>Price:</b> $18<br/>
+          <b>Format:</b> Instant PDF Download with photos, tips, and resource links<br/>
+          <a href="#" style={{
+            display: 'inline-block',
+            background: '#b94a48',
+            color: '#fff',
+            padding: '10px 28px',
+            borderRadius: 20,
+            textDecoration: 'none',
+            fontWeight: 700,
+            fontSize: 16,
+            marginTop: 14
+          }}>Purchase & Download</a>
+        </div>
+        <h3 style={{ color: '#4A7C59', fontFamily: 'Cormorant Garamond, serif', fontSize: '1.5rem', marginBottom: 18 }}>🛒 Premium Digital Products</h3>
+        <div style={{ background: '#f8f8f8', borderRadius: 14, padding: 20, marginBottom: 18 }}>
+          <b>Holistic Self-Care Guide</b><br/>
+          <span style={{ color: '#555' }}>Description:</span> A complete wellness roadmap with daily rituals, herbal tea recipes, affirmations, and stress-reducing practices.<br/>
+          <span style={{ color: '#555' }}>Price:</span> $12<br/>
+          <span style={{ color: '#555' }}>Format:</span> PDF Download<br/>
+          <a href="#" style={{
+            display: 'inline-block',
+            background: '#4A7C59',
+            color: '#fff',
+            padding: '10px 28px',
+            borderRadius: 20,
+            textDecoration: 'none',
+            fontWeight: 700,
+            fontSize: 16,
+            marginTop: 14
+          }}>Purchase & Download</a>
+        </div>
+        <div style={{ background: '#f8f8f8', borderRadius: 14, padding: 20, marginBottom: 28 }}>
+          <b>Herbal Healing Pantry Guide</b><br/>
+          <span style={{ color: '#555' }}>Description:</span> Learn how to stock your kitchen with natural, immunity-boosting herbs, spices, and plant-based essentials.<br/>
+          <span style={{ color: '#555' }}>Price:</span> $9<br/>
+          <span style={{ color: '#555' }}>Format:</span> PDF Download<br/>
+          <a href="#" style={{
+            display: 'inline-block',
+            background: '#4A7C59',
+            color: '#fff',
+            padding: '10px 28px',
+            borderRadius: 20,
+            textDecoration: 'none',
+            fontWeight: 700,
+            fontSize: 16,
+            marginTop: 14
+          }}>Purchase & Download</a>
+        </div>
+        <h3 style={{ color: '#4A7C59', fontFamily: 'Cormorant Garamond, serif', fontSize: '1.3rem', marginBottom: 12 }}>Categories You’ll Find Here</h3>
+        <ul style={{ color: '#4A7C59', fontSize: 16, marginBottom: 0, paddingLeft: 22, lineHeight: 1.7 }}>
+          <li><b>Cookbooks:</b> Vegan, gluten-free, seasonal eating, and cultural-inspired recipes.</li>
+          <li><b>Holistic Guides:</b> Herbal remedies, mindfulness, stress relief, and natural wellness.</li>
+          <li><b>Self-Help Books:</b> Goal setting, confidence building, and daily rituals for a balanced life.</li>
+        </ul>
+      </div>
+    </div>
+  );
+}
+
+// GlowPlans
+function GlowPlans() {
+  return (
+    <div style={{ padding: '48px 16px', maxWidth: 900, margin: '0 auto', fontFamily: 'Lora, Georgia, Times New Roman, serif', background: '#fff', borderRadius: 16, boxShadow: '0 2px 16px rgba(74,124,89,0.04)' }}>
+      <h2 style={{ fontFamily: 'Cormorant Garamond, Georgia, Times New Roman, serif', fontSize: '2.2rem', color: '#4A7C59', marginBottom: 24, textAlign: 'center' }}>The Glow Plans</h2>
+      <div style={{ marginBottom: 32, color: '#222', fontSize: 17, textAlign: 'center' }}>
+  Choose from two unique subscriptions: VIP Glow Bowls delivers fresh, nourishing plant-based bowls each week or month, while The Ritual Crate brings you a curated wellness box with teas, herbs, sea moss gel, recipes, and holistic surprises. Enjoy exclusive perks, flexible options, and a vibrant wellness experience delivered to you.
+      </div>
+  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 32, justifyContent: 'center', marginBottom: 40 }}>
+        <>
+          {/* Glow Crate card - single column layout to match VIP Glow Bowls card */}
+          <div style={{
+            flex: '1 1 340px',
+            minWidth: 300,
+            maxWidth: 500,
+            background: '#f8f8f8',
+            borderRadius: 16,
+            padding: 32,
+            boxShadow: '0 2px 8px rgba(74,124,89,0.06)',
+            marginBottom: 32,
+            fontFamily: 'Lora, Georgia, Times New Roman, serif',
+            color: '#222',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'stretch'
+          }}>
+            <h3 style={{ color: '#4A7C59', fontFamily: 'Cormorant Garamond, serif', fontSize: '1.35rem', marginBottom: 8 }}>✨ The Ritual Crate</h3>
+            <div style={{ color: '#222', fontSize: 16, marginBottom: 10, fontWeight: 600 }}>A monthly wellness experience from The Holistic Table</div>
+            <div style={{ fontWeight: 600, color: '#4A7C59', marginBottom: 8 }}>What’s Inside Each Crate</div>
+            <ul style={{ color: '#4A7C59', fontSize: 15, marginBottom: 10, paddingLeft: 20, marginTop: 0 }}>
+              <li>1 Wellness Tea Blend (4 oz)</li>
+              <li>1 Loose Herb (4 oz) with usage guide</li>
+              <li>1 Sea Moss Gel (16 oz, seasonal flavor)</li>
+              <li>1 Recipe Card featuring a nourishing meal or drink</li>
+              <li>1 Surprise Holistic Item (examples: mini smudge stick, bath soak, herbal salve, journal prompt set)</li>
+              <li>Exclusive Monthly Tip Sheet: herbal remedies, wellness rituals, seasonal self-care tips</li>
+            </ul>
+            <div style={{ fontWeight: 600, color: '#4A7C59', marginBottom: 8 }}>Subscription Options</div>
+            <ul style={{ color: '#4A7C59', fontSize: 15, marginBottom: 10, paddingLeft: 20, marginTop: 0 }}>
+              <li><b>Monthly Ritual</b> (Billed Monthly): $45/month<br/>Free pickup in Colorado Springs<br/>$8 flat local delivery (no Denver)</li>
+              <li style={{ marginTop: 8 }}><b>Bi-Monthly Ritual</b> (Every 2 Months): $88 every 2 months (save $2)<br/>Same perks as monthly</li>
+              <li style={{ marginTop: 8 }}><b>Annual Ritual Membership</b> (Best Value): $480/year (save $60 — equivalent to 1 free crate + extra item in your birthday month)<br/>Early access to new products and seasonal limited runs</li>
+            </ul>
+            <div style={{ color: '#388e3c', fontWeight: 700, marginBottom: 6 }}>Perks for Subscribers</div>
+            <ul style={{ color: '#388e3c', fontSize: 15, marginBottom: 10, paddingLeft: 20, marginTop: 0 }}>
+              <li>10% off all other Holistic Table products year-round</li>
+              <li>Priority restock access for limited herbs & seasonal Sea Moss</li>
+              <li>Invitation to exclusive online “Ritual Sessions” (mini wellness workshops)</li>
+            </ul>
+            <div style={{ color: '#222', fontWeight: 700, marginBottom: 6 }}>Cancellation & Pause Policy</div>
+            <div style={{ color: '#222', fontSize: 15, marginBottom: 8 }}>Cancel or pause up to 7 days before next billing date<br/>Refunds available if canceled within policy timeframe</div>
+            <div style={{ color: '#222', fontWeight: 700, marginBottom: 6 }}>Order & Delivery Schedule</div>
+            <div style={{ color: '#222', fontSize: 15, marginBottom: 12 }}>Order Deadline: 15th of each month<br/>Crates Ship/Deliver/Pick-up: Last week of the month</div>
+            <a
+              href="https://buy.stripe.com/test_RitualCrate"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                background: '#4A7C59',
+                color: '#fff',
+                padding: '10px 32px',
+                borderRadius: 20,
+                textDecoration: 'none',
+                fontWeight: 700,
+                fontSize: '1.1rem',
+                marginTop: 8,
+                width: 'fit-content',
+                marginLeft: 'auto',
+                marginRight: 'auto',
+                cursor: 'pointer',
+                boxShadow: '0 2px 8px #4A7C5933',
+                transition: 'background 0.2s'
+              }}
+            >
+              Rituals Monthly
+            </a>
+          </div>
+          {/* VIP Glow Bowls card */}
+          <div style={{ minWidth: 300, maxWidth: 500, background: '#f8f8f8', borderRadius: 16, padding: 32, boxShadow: '0 2px 8px rgba(74,124,89,0.06)', marginBottom: 32, fontFamily: 'Lora, Georgia, Times New Roman, serif', color: '#222' }}>
+            <h3 style={{ color: '#4A7C59', fontFamily: 'Cormorant Garamond, serif', fontSize: '1.35rem', marginBottom: 8 }}>🌿 VIP Glow Bowls</h3>
+            <div style={{ color: '#222', fontSize: 16, marginBottom: 10, fontWeight: 600 }}>Weekly Subscription (billed every week)</div>
+            <ul style={{ color: '#4A7C59', fontSize: 15, marginBottom: 10, paddingLeft: 20, marginTop: 0 }}>
+              <li>3 Bowls/week – $30 ($10 each)</li>
+              <li>5 Bowls/week – $48 ($9.60 each)</li>
+            </ul>
+            <div style={{ color: '#222', fontSize: 16, marginBottom: 10, fontWeight: 600 }}>Bi-Weekly Subscription (billed every 2 weeks)</div>
+            <ul style={{ color: '#4A7C59', fontSize: 15, marginBottom: 10, paddingLeft: 20, marginTop: 0 }}>
+              <li>6 Bowls every 2 weeks – $58 ($9.67 each)</li>
+              <li>10 Bowls every 2 weeks – $92 ($9.20 each)</li>
+            </ul>
+            <div style={{ color: '#222', fontSize: 16, marginBottom: 10, fontWeight: 600 }}>Monthly Subscription (billed every month)</div>
+            <ul style={{ color: '#4A7C59', fontSize: 15, marginBottom: 10, paddingLeft: 20, marginTop: 0 }}>
+              <li>12 Bowls/month – $110 ($9.17 each)</li>
+              <li>20 Bowls/month – $180 ($9 each)</li>
+            </ul>
+            <div style={{ color: '#388e3c', fontWeight: 700, marginBottom: 6 }}>Perks for All Subscribers:</div>
+            <ul style={{ color: '#388e3c', fontSize: 15, marginBottom: 10, paddingLeft: 20, marginTop: 0 }}>
+              <li>Access to VIP + Coming Soon bowls</li>
+              <li>Free sample of a tea blend or loose herb each month</li>
+              <li>Surprise holistic item each month</li>
+            </ul>
+            <div style={{ color: '#222', fontWeight: 700, marginBottom: 6 }}>Ordering & Delivery:</div>
+            <div style={{ color: '#222', fontSize: 15, marginBottom: 8 }}><b>Order Deadline:</b> Thursdays by 5 PM</div>
+            <div style={{ color: '#222', fontSize: 15, marginBottom: 8 }}><b>Pickup:</b> Free in Colorado Springs</div>
+            <div style={{ color: '#222', fontSize: 15, marginBottom: 8 }}><b>Delivery:</b> $8 local flat rate (no Denver)</div>
+            <div style={{ color: '#222', fontSize: 15, marginBottom: 8 }}>Delivery day is Saturday and you will be texted with pickup or delivery time.</div>
+            <div style={{ fontSize: 15, marginBottom: 8 }}><b>Pause/Cancel:</b> <span style={{ color: 'red' }}>A week's notice before next delivery</span></div>
+            <div style={{ color: '#4A7C59', fontWeight: 700, fontSize: 16, marginTop: 18, textAlign: 'center' }}>Coming Soon.</div>
+            <div style={{ textAlign: 'center', marginTop: 18 }}>
+              <button
+                style={{
+                  background: '#F9B233',
+                  color: '#fff',
+                  padding: '12px 32px',
+                  borderRadius: 22,
+                  fontWeight: 600,
+                  fontSize: 17,
+                  border: 'none',
+                  cursor: 'pointer',
+                  boxShadow: '0 2px 8px #f9b23333',
+                  transition: 'background 0.2s',
+                  marginTop: 8
+                }}
+                onClick={() => window.open('https://forms.gle/dWXprWcdn21m59bk7', '_blank')}
+                onMouseOver={e => e.currentTarget.style.background = '#e6a821'}
+                onMouseOut={e => e.currentTarget.style.background = '#F9B233'}
+              >
+                Join Waitlist
+              </button>
+            </div>
+          </div>
+        </>
+      </div>
+    </div>
+  );
+}
+
+// Testimonials (Wellness Wins)
+function Testimonials() {
+  return (
+    <div style={{ padding: 40, maxWidth: 800, margin: '0 auto', fontFamily: 'Lora, Georgia, Times New Roman, serif', background: '#fff', borderRadius: 16, boxShadow: '0 2px 16px rgba(74,124,89,0.04)' }}>
+      <h2 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '2.2rem', color: '#4A7C59', marginBottom: 10, textAlign: 'center' }}>Wellness Wins</h2>
+      {/* ...testimonials content as before... */}
+    </div>
+  );
+}
+
+// FAQs
+function FAQs() {
+  return (
+    <div style={{ padding: 40, maxWidth: 700, margin: '0 auto', fontFamily: 'Lora, Georgia, Times New Roman, serif', background: '#fff', borderRadius: 16, boxShadow: '0 2px 16px rgba(74,124,89,0.04)' }}>
+      <h2 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '2.2rem', color: '#4A7C59', marginBottom: 18, textAlign: 'center' }}>Frequently Asked Questions</h2>
+      <div style={{ fontSize: 16, color: '#222', marginBottom: 28, textAlign: 'center' }}>
+        Find answers to our most common questions about The Holistic Table by KB, our products, and wellness resources.
+      </div>
+      <div style={{ fontSize: 16, color: '#222' }}>
+        <ol style={{ paddingLeft: 20 }}>
+          <li style={{ marginBottom: 18 }}>
+            <b>What is The Holistic Table by KB?</b><br />
+            The Holistic Table by KB is your space for plant-powered wellness, offering nourishing recipes, superfood blends, holistic self-care tools, workshops, and resources for living vibrantly.
+          </li>
+          <li style={{ marginBottom: 18 }}>
+            <b>Are all your products natural and vegan?</b><br />
+            Yes. Every product at The Holistic Table by KB is plant-based, cruelty-free, and made with high-quality, natural ingredients.
+          </li>
+          <li style={{ marginBottom: 18 }}>
+            <b>Do you ship products?</b><br />
+            Yes, we ship select items nationwide. Shipping is calculated at checkout based on your location and order size.
+          </li>
+          <li style={{ marginBottom: 18 }}>
+            <b>How should I store Sea Moss gel and herbal blends?</b><br />
+            <b>Sea Moss Gel:</b> Keep refrigerated upon arrival. Lasts 3 to 4 weeks in the fridge or up to 6 months frozen.<br />
+            <b>Herbal Blends:</b> Store in a cool, dry place away from direct sunlight.
+          </li>
+          <li style={{ marginBottom: 18 }}>
+            <b>Will there be workshops or events?</b><br />
+            Yes. Our workshops and events may be in-person or online depending on the event. You’ll find the details on our Wellness Room page.
+          </li>
+          <li style={{ marginBottom: 18 }}>
+            <b>Do you offer consultations?</b><br />
+            Yes, we provide personalized wellness consultations to help you choose the best products, practices, and nutrition for your needs.
+          </li>
+          <li style={{ marginBottom: 18 }}>
+            <b>Can I subscribe for regular deliveries?</b><br />
+            Absolutely. We offer subscription plans for our wellness products so you never miss a dose of your favorites.
+          </li>
+          <li style={{ marginBottom: 0 }}>
+            <b>Do you have free resources?</b><br />
+            Yes. The Holistic Hub features a rotating free resource, plus premium guides, cookbooks, and self care eBooks.
+          </li>
+        </ol>
+      </div>
+      <div style={{ textAlign: 'center', marginTop: 36 }}>
+        <a href="/contact" style={{
+          display: 'inline-block',
+          background: '#F9B233',
+          color: '#fff',
+          padding: '12px 32px',
+          borderRadius: 22,
+          fontWeight: 600,
+          fontSize: 17,
+          textDecoration: 'none',
+          boxShadow: '0 2px 8px #f9b23333',
+          transition: 'background 0.2s'
+        }}>Still Have Questions?</a>
+      </div>
+    </div>
+  );
+}
+
+// Contact
+function Contact() {
+  return (
+    <div style={{ padding: 40, maxWidth: 700, margin: '0 auto', fontFamily: 'Lora, Georgia, Times New Roman, serif', background: '#fff', borderRadius: 16, boxShadow: '0 2px 16px rgba(74,124,89,0.04)' }}>
+      <h2 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '2.2rem', color: '#4A7C59', marginBottom: 18, textAlign: 'center' }}>Connect With Us</h2>
+      <div style={{ fontSize: 16, color: '#222', marginBottom: 28, textAlign: 'center' }}>
+        We’d love to hear from you! Whether you have questions about our products, feedback on your experience, or just want to say hello, reach out anytime.
+      </div>
+      <div style={{ fontSize: 16, color: '#222', marginBottom: 24 }}>
+        <b>Phone</b><br />
+  <span role="img" aria-label="Phone">📞</span> 720-314-8117
+      </div>
+      <div style={{ fontSize: 16, color: '#222', marginBottom: 24 }}>
+        <b>Email</b><br />
+  <span role="img" aria-label="Email">📩</span> kwalker@holistictable.com
+      </div>
+      <div style={{ fontSize: 16, color: '#222', marginBottom: 24 }}>
+        <b>Follow Us Online</b><br />
+        Stay connected for recipes, wellness tips, exclusive discounts, and product launches:<br />
+        <div style={{ marginTop: 8 }}>
+          <span style={{ display: 'block', marginBottom: 4 }}><b>Instagram:</b> @theholistictablebykb</span>
+          <span style={{ display: 'block', marginBottom: 4 }}><b>Facebook:</b> @theholistictablebykb</span>
+          <span style={{ display: 'block', marginBottom: 4 }}><b>Pinterest:</b> @theholistictablebykb</span>
+          <span style={{ display: 'block', marginBottom: 4 }}><b>TikTok:</b> @theholistictablebykb</span>
+        </div>
+      </div>
+      <div style={{ fontSize: 16, color: '#222', marginBottom: 0 }}>
+        <b>Business Hours</b><br />
+        We aim to respond to all inquiries within 24–48 hours (Monday–Friday).
+      </div>
+    </div>
+  );
+}
+
+// Checkout
+function Checkout() {
+  return (
+    <div style={{ padding: 40, maxWidth: 700, margin: '0 auto', fontFamily: 'Lora, Georgia, Times New Roman, serif', background: '#fff', borderRadius: 16, boxShadow: '0 2px 16px rgba(74,124,89,0.04)' }}>
+      <h2 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '2.2rem', color: '#4A7C59', marginBottom: 18, textAlign: 'center' }}>Checkout & Booking</h2>
+      {/* ...checkout content as before... */}
+    </div>
+  );
+}
+
+
 function App() {
   return (
     <Router>
       <div style={{ background: '#f5f5f5', minHeight: '100vh' }}>
         <nav className="navbar">
-          <img
+  <img
             src={process.env.PUBLIC_URL + '/The holistic table logo.png'}
             alt="The Holistic Table by KB Logo"
             className="navbar-logo"
           />
-          <NavLink to="/" className={({ isActive }) => isActive ? 'navbar-link active' : 'navbar-link'}>Home</NavLink>
+  <NavLink to="/" className={({ isActive }) => isActive ? 'navbar-link active' : 'navbar-link'}>Home</NavLink>
           <NavLink to="/about" className={({ isActive }) => isActive ? 'navbar-link active' : 'navbar-link'}>About</NavLink>
           <NavLink to="/menu" className={({ isActive }) => isActive ? 'navbar-link active' : 'navbar-link'}>VIP Glow Kitchen</NavLink>
           <NavLink to="/glow-plans" className={({ isActive }) => isActive ? 'navbar-link active' : 'navbar-link'}>The Glow Plans</NavLink>
@@ -23,7 +652,7 @@ function App() {
           {/* <NavLink to="/subscriptions" className={({ isActive }) => isActive ? 'navbar-link active' : 'navbar-link'}>Subscriptions</NavLink> */}
           <NavLink to="/services" className={({ isActive }) => isActive ? 'navbar-link active' : 'navbar-link'}>The Holistic Hub</NavLink>
           <NavLink to="/wellness-room" className={({ isActive }) => isActive ? 'navbar-link active' : 'navbar-link'}>The Wellness Room</NavLink>
-          <NavLink to="/blog" className={({ isActive }) => isActive ? 'navbar-link active' : 'navbar-link'}>Fresh Press</NavLink>
+          <NavLink to="/fresh-press" className={({ isActive }) => isActive ? 'navbar-link active' : 'navbar-link'}>Fresh Press</NavLink>
           {/* <NavLink to="/glow-plans" className={({ isActive }) => isActive ? 'navbar-link active' : 'navbar-link'}>The Glow Plans</NavLink> */}
           <NavLink to="/testimonials" className={({ isActive }) => isActive ? 'navbar-link active' : 'navbar-link'}>Wellness Wins</NavLink>
           <NavLink to="/faqs" className={({ isActive }) => isActive ? 'navbar-link active' : 'navbar-link'}>FAQs</NavLink>
@@ -36,10 +665,10 @@ function App() {
           <Route path="/shop" element={<Shop />} />
           {/* <Route path="/subscriptions" element={<Subscriptions />} /> */}
           <Route path="/services" element={<Services />} />
+          <Route path="/fresh-press" element={<FreshPress />} />
           <Route path="/wellness-room" element={<WellnessRoom />} />
-          <Route path="/blog" element={<Blog />} />
           <Route path="/glow-plans" element={<GlowPlans />} />
-          <Route path="/testimonials" element={<Testimonials />} />
+          <Route path="/testimonials" element={<WellnessWins />} />
           <Route path="/faqs" element={<FAQs />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/checkout" element={<Checkout />} />
@@ -49,197 +678,7 @@ function App() {
   );
 }
 
-// Custom Checkout/Booking Page
-function Checkout() {
-  return (
-    <div style={{ padding: 40, maxWidth: 700, margin: '0 auto', fontFamily: 'Lora, Georgia, Times New Roman, serif', background: '#fff', borderRadius: 16, boxShadow: '0 2px 16px rgba(74,124,89,0.04)' }}>
-      <h2 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '2.2rem', color: '#4A7C59', marginBottom: 18, textAlign: 'center' }}>Checkout & Booking</h2>
-      <div style={{ fontSize: 16, color: '#222', marginBottom: 24, textAlign: 'center' }}>
-        Complete your purchase or booking below. (This is a placeholder page—add your payment, subscription, or booking form here.)
-      </div>
-      <div style={{ background: '#f8f8f8', borderRadius: 14, padding: 32, textAlign: 'center', color: '#888', fontSize: 17 }}>
-        <b>Coming Soon:</b> Secure checkout for pantry items, subscriptions, and wellness consultations—all in one place!
-      </div>
-    </div>
-  );
-}
-// ...existing code...
-
-
-function GlowPlans() {
-  return (
-    <div style={{ padding: '48px 16px', maxWidth: 800, margin: '0 auto', fontFamily: 'Lora, Georgia, Times New Roman, serif', background: '#fff', borderRadius: 16, boxShadow: '0 2px 16px rgba(74,124,89,0.04)' }}>
-      <h2 style={{ fontFamily: 'Cormorant Garamond, Georgia, Times New Roman, serif', fontSize: '2.2rem', color: '#4A7C59', marginBottom: 24, textAlign: 'center' }}>The Glow Plans</h2>
-      <p style={{ fontSize: '1.15rem', lineHeight: 1.7, color: '#222', marginBottom: 18, textAlign: 'center' }}>
-        Explore our two signature subscriptions: <b>VIP Glow Bowl</b>—a flexible meal plan for fresh, plant-based bowls, and <b>The Ritual Crate</b>—a monthly wellness box with teas, herbs, sea moss, and holistic surprises. Choose the plan that fits your lifestyle and nourish your glow from the inside out!
-      </p>
-      <ul style={{ fontSize: '1.08rem', lineHeight: 1.7, color: '#222', margin: '0 auto', maxWidth: 600, paddingLeft: 24 }}>
-        <li style={{ marginBottom: 16 }}><b>Glow Reset</b>: A 7-day plant-based reset with nourishing meals, herbal teas, and daily wellness tips.</li>
-        <li style={{ marginBottom: 16 }}><b>Glow Up</b>: A 21-day transformation plan with meal prep, herbal blends, and lifestyle coaching for lasting results.</li>
-        <li style={{ marginBottom: 16 }}><b>Glow for Life</b>: Ongoing support, recipes, and resources for maintaining your glow year-round.</li>
-      </ul>
-
-      {/* Ritual Crate Subscription */}
-      <div style={{
-        background: '#f8f8f8',
-        borderRadius: 16,
-        boxShadow: '0 2px 12px rgba(74,124,89,0.06)',
-        padding: '32px 24px',
-        margin: '40px 0',
-        maxWidth: 650,
-        marginLeft: 'auto',
-        marginRight: 'auto'
-      }}>
-        <h3 style={{ color: '#4A7C59', fontFamily: 'Cormorant Garamond, serif', fontSize: '1.5rem', marginBottom: 18, textAlign: 'center' }}>
-          ✨ The Ritual Crate
-        </h3>
-        <div style={{ fontSize: 17, color: '#222', marginBottom: 18, textAlign: 'center' }}>
-          A monthly wellness experience from The Holistic Table
-        </div>
-        <div style={{ fontSize: 17, color: '#4A7C59', fontWeight: 700, marginBottom: 10 }}>What’s Inside Each Crate</div>
-        <ul style={{ fontSize: 16, color: '#222', marginBottom: 18, paddingLeft: 22 }}>
-          <li>1 Wellness Tea Blend (4 oz or 20 tea bags)</li>
-          <li>1 Loose Herb (4 oz) with usage guide</li>
-          <li>1 Small Sea Moss Gel (8 oz, seasonal flavor)</li>
-          <li>1 Recipe Card featuring a nourishing meal or drink</li>
-          <li>1 Surprise Holistic Item <span style={{ color: '#888', fontSize: 15 }}>(examples: mini smudge stick, bath soak, herbal salve, journal prompt set)</span></li>
-          <li>Exclusive Monthly Tip Sheet — herbal remedies, wellness rituals, seasonal self-care tips</li>
-        </ul>
-        <div style={{ fontSize: 17, color: '#4A7C59', fontWeight: 700, marginBottom: 10 }}>Subscription Options</div>
-        <ul style={{ fontSize: 16, color: '#222', marginBottom: 18, paddingLeft: 22 }}>
-          <li><b>1. Monthly Ritual (Billed Monthly):</b> $45/month<br />Free pickup in Colorado Springs<br />$8 flat local delivery (no Denver)</li>
-          <li><b>2. Bi-Monthly Ritual (Every 2 Months):</b> $88 every 2 months <span style={{ color: '#888', fontSize: 15 }}>(save $2)</span><br />Same perks as monthly</li>
-          <li><b>3. Annual Ritual Membership (Best Value):</b> $480/year <span style={{ color: '#888', fontSize: 15 }}>(save $60 — equivalent to 1 free crate + extra item in your birthday month)</span><br />Early access to new products and seasonal limited runs</li>
-        </ul>
-        <div style={{ fontSize: 17, color: '#4A7C59', fontWeight: 700, marginBottom: 10 }}>Perks for Subscribers</div>
-        <ul style={{ fontSize: 16, color: '#222', marginBottom: 18, paddingLeft: 22 }}>
-          <li>10% off all other Holistic Table products year-round</li>
-          <li>Priority restock access for limited herbs & seasonal Sea Moss</li>
-          <li>Invitation to exclusive online “Ritual Sessions” (mini wellness workshops)</li>
-        </ul>
-        <div style={{ fontSize: 17, color: '#4A7C59', fontWeight: 700, marginBottom: 10 }}>Cancellation & Pause Policy</div>
-        <ul style={{ fontSize: 16, color: '#222', marginBottom: 18, paddingLeft: 22 }}>
-          <li>Cancel or pause up to 7 days before next billing date</li>
-          <li>Refunds available if canceled within policy timeframe</li>
-        </ul>
-        <div style={{ fontSize: 17, color: '#4A7C59', fontWeight: 700, marginBottom: 10 }}>Order & Delivery Schedule</div>
-        <ul style={{ fontSize: 16, color: '#222', marginBottom: 0, paddingLeft: 22 }}>
-          <li><b>Order Deadline:</b> 15th of each month</li>
-          <li><b>Crates Ship/Deliver:</b> Last week of the month</li>
-        </ul>
-        <div style={{ fontSize: 15, color: '#888', marginTop: 18, textAlign: 'center' }}>
-          💡 This is designed so:<br />Monthly feels accessible ($45 hits a sweet spot for a luxury wellness box in Colorado)<br />Annual offers the biggest value to lock in long-term customers<br />Each box feels like a mini wellness retreat
-        </div>
-        <div style={{ textAlign: 'center', marginTop: 28 }}>
-          <a href="mailto:info@theholistictable.com?subject=The%20Ritual%20Crate%20Order" style={{
-            display: 'inline-block',
-            background: 'linear-gradient(90deg, #4A7C59 0%, #7BC67E 100%)',
-            color: '#fff',
-            padding: '14px 36px',
-            borderRadius: 28,
-            fontSize: 20,
-            fontWeight: 700,
-            textDecoration: 'none',
-            boxShadow: '0 2px 8px rgba(74,124,89,0.10)'
-          }}>Get Your Ritual</a>
-        </div>
-      </div>
-
-      {/* VIP Glow Bowl Subscription Plans - Coming Soon Overlay */}
-      <div style={{
-        position: 'relative',
-        background: '#f8f8f8',
-        borderRadius: 16,
-        boxShadow: '0 2px 12px rgba(74,124,89,0.06)',
-        padding: '32px 24px',
-        margin: '40px 0',
-        maxWidth: 650,
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        overflow: 'hidden'
-      }}>
-        {/* Overlay */}
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          background: 'rgba(255,255,255,0.85)',
-          zIndex: 2,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          borderRadius: 16
-        }}>
-          <div style={{ fontSize: 22, color: '#4A7C59', fontWeight: 700, marginBottom: 12, textAlign: 'center' }}>
-            VIP Glow Bowl Subscription Plans
-          </div>
-          <div style={{ fontSize: 17, color: '#b94a48', marginBottom: 18, textAlign: 'center', fontWeight: 600 }}>
-            Coming Soon!
-          </div>
-          <div style={{ fontSize: 16, color: '#222', marginBottom: 18, textAlign: 'center', maxWidth: 400 }}>
-            We’re putting the finishing touches on our VIP Glow Bowl subscriptions. Join the waitlist to be the first to know when it launches!
-          </div>
-          <a href="mailto:info@theholistictable.com?subject=VIP%20Glow%20Bowl%20Waitlist" style={{
-            display: 'inline-block',
-            background: 'linear-gradient(90deg, #4A7C59 0%, #7BC67E 100%)',
-            color: '#fff',
-            padding: '12px 32px',
-            borderRadius: 24,
-            fontSize: 18,
-            fontWeight: 700,
-            textDecoration: 'none',
-            boxShadow: '0 2px 8px rgba(74,124,89,0.10)',
-            marginTop: 8
-          }}>Join Waitlist</a>
-        </div>
-        {/* Blurred content underneath */}
-        <div style={{
-          filter: 'blur(2.5px)',
-          pointerEvents: 'none',
-          userSelect: 'none',
-          opacity: 0.5
-        }}>
-          <h3 style={{ color: '#4A7C59', fontFamily: 'Cormorant Garamond, serif', fontSize: '1.5rem', marginBottom: 18, textAlign: 'center' }}>
-            VIP Glow Bowl Subscription Plans
-          </h3>
-          <div style={{ fontSize: 17, color: '#222', marginBottom: 18 }}>
-            <b>Weekly Subscription (billed every week)</b>
-            <ul style={{ marginTop: 8, marginBottom: 16, paddingLeft: 22 }}>
-              <li>3 Bowls/week – $30 <span style={{ color: '#888', fontSize: 15 }}>($10 each)</span></li>
-              <li>5 Bowls/week – $48 <span style={{ color: '#888', fontSize: 15 }}>($9.60 each)</span></li>
-            </ul>
-            <b>Bi-Weekly Subscription (billed every 2 weeks)</b>
-            <ul style={{ marginTop: 8, marginBottom: 16, paddingLeft: 22 }}>
-              <li>6 Bowls every 2 weeks – $58 <span style={{ color: '#888', fontSize: 15 }}>($9.67 each)</span></li>
-              <li>10 Bowls every 2 weeks – $92 <span style={{ color: '#888', fontSize: 15 }}>($9.20 each)</span></li>
-            </ul>
-            <b>Monthly Subscription (billed every month)</b>
-            <ul style={{ marginTop: 8, marginBottom: 16, paddingLeft: 22 }}>
-              <li>12 Bowls/month – $110 <span style={{ color: '#888', fontSize: 15 }}>($9.17 each)</span></li>
-              <li>20 Bowls/month – $180 <span style={{ color: '#888', fontSize: 15 }}>($9 each)</span></li>
-            </ul>
-          </div>
-          <div style={{ fontSize: 17, color: '#4A7C59', fontWeight: 700, marginBottom: 10 }}>Perks for All Subscribers:</div>
-          <ul style={{ fontSize: 16, color: '#222', marginBottom: 18, paddingLeft: 22 }}>
-            <li>Access to VIP + Coming Soon bowls</li>
-            <li>Free sample of a tea blend or loose herb each month</li>
-            <li>Priority ordering before public menu drops</li>
-          </ul>
-          <div style={{ fontSize: 17, color: '#4A7C59', fontWeight: 700, marginBottom: 10 }}>Ordering & Delivery:</div>
-          <ul style={{ fontSize: 16, color: '#222', marginBottom: 0, paddingLeft: 22 }}>
-            <li><b>Order Deadline:</b> Thursdays by 5 PM</li>
-            <li><b>Pickup:</b> Free in Colorado Springs (Saturday)</li>
-            <li><b>Delivery:</b> $8 local flat rate (no Denver)</li>
-            <li><b>Pause/Cancel:</b> Cancel at least 1 week before next delivery <span style={{ color: '#b94a48', fontWeight: 600 }}>(or you will be charged and no refund will be issued)</span></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  );
-}
+// Home
 function Home() {
   return (
     <div>
@@ -265,65 +704,74 @@ function Home() {
             padding: '14px 36px',
             borderRadius: 30,
             fontSize: 20,
-            fontWeight: 700,
-            textDecoration: 'none',
-            boxShadow: '0 2px 8px rgba(74,124,89,0.10)',
-            marginTop: 12
-          }}>
-            Shop Now
-          </NavLink>
+            fontWeight: 700
+          }}>Shop The Pantry</NavLink>
         </div>
       </section>
-
-      {/* Featured Products Section */}
-      <section style={{ background: '#fff', padding: '48px 0 56px 0', borderTop: '1px solid #e0e0e0' }}>
-        <div style={{ maxWidth: 900, margin: '0 auto', padding: '0 16px' }}>
-          <h2 style={{ fontFamily: 'Cormorant Garamond, Georgia, Times New Roman, serif', color: '#4A7C59', fontSize: '2rem', marginBottom: 32, textAlign: 'center' }}>
-            Featured Products
-          </h2>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 32, justifyContent: 'center' }}>
-            {/* Product 1 */}
-            <NavLink to="/shop#seamoss-gel" style={{ textDecoration: 'none' }}>
-              <div style={{ background: '#f8f8f8', borderRadius: 16, boxShadow: '0 2px 12px rgba(74,124,89,0.06)', maxWidth: 340, flex: '1 1 300px', padding: 24, textAlign: 'center', transition: 'box-shadow 0.2s', cursor: 'pointer' }}>
-                <div style={{ marginBottom: 18 }}>
-                  <img src="https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&fit=crop&w=400&q=80" alt="Vitality Glow Seamoss Gel" style={{ width: '100%', borderRadius: 12, height: 160, objectFit: 'cover', background: '#eee' }} />
-                </div>
-                <h3 style={{ fontFamily: 'Cormorant Garamond, Georgia, Times New Roman, serif', color: '#4A7C59', fontSize: '1.3rem', marginBottom: 6 }}>Vitality Glow Seamoss Gel – Pineapple Ginger</h3>
-                <div style={{ color: '#888', fontSize: 16, marginBottom: 4 }}>$22 <span style={{ fontWeight: 400, fontSize: 14 }}>(16 oz jar)</span></div>
-                <div style={{ fontStyle: 'italic', color: '#4A7C59', fontSize: 15, marginBottom: 10 }}>
-                  “A tropical boost for your body, beauty, and energy.”
-                </div>
-                <div style={{ color: '#222', fontSize: 15, marginBottom: 0 }}>
-                  Our signature small batch seamoss gel infused with fresh pineapple and warming ginger for a naturally sweet, mineral-rich boost. Perfect for adding to smoothies, teas, or enjoying by the spoonful to support immunity, digestion, and glowing skin.
-                </div>
+      {/* Featured Items Section */}
+      <div style={{ maxWidth: 800, margin: '40px auto', padding: '0 16px' }}>
+  <h2 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '2rem', color: '#4A7C59', marginBottom: 24, textAlign: 'center', letterSpacing: '1.2px' }}>Featured Items</h2>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 32, justifyContent: 'center' }}>
+          {/* Vitality Glow Seamoss Gel – Pineapple Ginger + Curcumin */}
+          <div style={{ background: '#f8f8f8', borderRadius: 16, boxShadow: '0 2px 12px rgba(74,124,89,0.06)', maxWidth: 340, flex: '1 1 300px', padding: 24, textAlign: 'center', marginBottom: 24 }}>
+            <div style={{ marginBottom: 18 }}>
+              <div style={{ width: '100%', height: 160, background: '#eee', borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#bbb', fontSize: 18 }}>
+                Image Placeholder
               </div>
-            </NavLink>
-            {/* Product 2 */}
-            <NavLink to="/shop#calm-restore-tea" style={{ textDecoration: 'none' }}>
-              <div style={{ background: '#f8f8f8', borderRadius: 16, boxShadow: '0 2px 12px rgba(74,124,89,0.06)', maxWidth: 340, flex: '1 1 300px', padding: 24, textAlign: 'center', transition: 'box-shadow 0.2s', cursor: 'pointer' }}>
-                {/* Calm & Restore Herbal Tea Blend Photo Placeholder */}
-                <div style={{ marginBottom: 18 }}>
-                  <div style={{ height: 160, background: '#e0efe6', borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#4A7C59', fontWeight: 600, fontSize: 16 }}>
-                    Photo Placeholder: Calm & Restore Herbal Tea Blend
-                  </div>
-                </div>
-                <h3 style={{ fontFamily: 'Cormorant Garamond, Georgia, Times New Roman, serif', color: '#4A7C59', fontSize: '1.3rem', marginBottom: 6 }}>Calm & Restore Herbal Tea Blend</h3>
-                <div style={{ color: '#888', fontSize: 16, marginBottom: 4 }}>$12 <span style={{ fontWeight: 400, fontSize: 14 }}>(8 oz loose leaf)</span></div>
-                <div style={{ fontStyle: 'italic', color: '#4A7C59', fontSize: 15, marginBottom: 10 }}>
-                  “Unwind, sip, and let the day melt away.”
-                </div>
-                <div style={{ color: '#222', fontSize: 15, marginBottom: 0 }}>
-                  A soothing blend of chamomile, lavender, and lemon balm crafted to relax the mind, calm the body, and prepare you for restorative sleep. Sustainably sourced and hand-blended for maximum freshness and potency.
-                </div>
+            </div>
+            <h3 style={{ color: '#4A7C59', fontSize: '1.15rem', marginBottom: 6 }}>Vitality Glow Seamoss Gel – Pineapple Ginger + Curcumin</h3>
+            <div style={{ color: '#888', fontSize: 15, marginBottom: 4 }}>16oz – $24</div>
+            <div style={{ fontSize: 15, marginBottom: 10 }}>
+              A golden burst of plant-powered vitality. Our Pineapple Ginger + Curcumin Seamoss Gel blends wildcrafted seamoss with tropical pineapple, zesty ginger, and anti-inflammatory curcumin for a vibrant wellness boost. Perfect in smoothies, teas, or straight off the spoon.
+            </div>
+            <div style={{ fontSize: 14, color: '#4A7C59', marginBottom: 6 }}><b>Benefits:</b> Immune support, anti-inflammatory, digestive health, energy boost.</div>
+            <div style={{ fontSize: 13, color: '#888', marginBottom: 10 }}><b>Storage:</b> Refrigerate after opening. Lasts 3–4 weeks chilled or freeze for up to 6 months.</div>
+            <a href="https://buy.stripe.com/test_4gM14ngRKaX69G16hhcEw00" target="_blank" rel="noopener noreferrer" style={{
+              background: '#4A7C59',
+              color: '#fff',
+              padding: '8px 24px',
+              borderRadius: 20,
+              textDecoration: 'none',
+              fontWeight: 700,
+              display: 'block',
+              width: 'fit-content',
+              marginLeft: 'auto',
+              marginRight: 'auto'
+            }}>Buy Now</a>
+          </div>
+          {/* Tropical Vitality Tea – Soursop, Rooibos & Moringa */}
+          <div style={{ background: '#f8f8f8', borderRadius: 16, boxShadow: '0 2px 12px rgba(74,124,89,0.06)', maxWidth: 340, flex: '1 1 300px', padding: 24, textAlign: 'center', marginBottom: 24 }}>
+            <div style={{ marginBottom: 18 }}>
+              <div style={{ width: '100%', height: 160, background: '#eee', borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#bbb', fontSize: 18 }}>
+                Image Placeholder
               </div>
-            </NavLink>
+            </div>
+            <h3 style={{ color: '#4A7C59', fontSize: '1.15rem', marginBottom: 6 }}>Tropical Vitality Tea – Soursop, Rooibos & Moringa</h3>
+            <div style={{ color: '#888', fontSize: 15, marginBottom: 4 }}>4oz Pouch – $12</div>
+            <div style={{ fontSize: 15, marginBottom: 10 }}>
+              An uplifting, island-inspired blend featuring antioxidant-rich soursop leaf, earthy rooibos, and nutrient-packed moringa. Naturally caffeine-free with a light tropical flavor and a gentle energy lift.
+            </div>
+            <div style={{ fontSize: 14, color: '#4A7C59', marginBottom: 6 }}><b>Benefits:</b> Immune support, antioxidant boost, anti-inflammatory properties.</div>
+            <a href="https://buy.stripe.com/test_cNi4gz8le9T2aK50WXcEw02" target="_blank" rel="noopener noreferrer" style={{
+              background: '#4A7C59',
+              color: '#fff',
+              padding: '8px 24px',
+              borderRadius: 20,
+              textDecoration: 'none',
+              fontWeight: 700,
+              display: 'block',
+              width: 'fit-content',
+              marginLeft: 'auto',
+              marginRight: 'auto'
+            }}>Buy Now</a>
           </div>
         </div>
-      </section>
-
+      </div>
     </div>
   );
 }
+
+// About
 function About() {
   return (
     <div style={{ padding: '48px 16px', maxWidth: 800, margin: '0 auto', fontFamily: 'Lora, Georgia, Times New Roman, serif', background: '#fff', borderRadius: 16, boxShadow: '0 2px 16px rgba(74,124,89,0.04)' }}>
@@ -453,6 +901,8 @@ function About() {
     </div>
   );
 }
+
+// Menu
 function Menu() {
   return (
     <div style={{ position: 'relative', padding: '48px 16px', maxWidth: 900, margin: '0 auto', fontFamily: 'Lora, Georgia, Times New Roman, serif', background: '#fff', borderRadius: 16, boxShadow: '0 2px 16px rgba(74,124,89,0.04)' }}>
@@ -506,7 +956,7 @@ function Menu() {
           }}
           onMouseOver={e => e.currentTarget.style.transform = 'scale(1.05)'}
           onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'}
-          onClick={() => window.open('mailto:info@theholistictable.com?subject=VIP%20Glow%20Kitchen%20Waitlist', '_blank')}
+          onClick={() => window.open('https://forms.gle/dWXprWcdn21m59bk7', '_blank')}
         >
           Join Waitlist
         </button>
@@ -519,7 +969,7 @@ function Menu() {
   );
 }
 
-// Extracted Menu content for clarity and to ensure valid JSX
+// MenuContent
 function MenuContent() {
   return (
     <div>
@@ -528,16 +978,16 @@ function MenuContent() {
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 32, marginBottom: 40 }}>
         {/* Glow Goddess Bowl */}
         <div style={{ flex: '1 1 260px', minWidth: 260, background: '#f8f8f8', borderRadius: 14, padding: 24, boxShadow: '0 2px 12px rgba(74,124,89,0.06)' }}>
-      <h3 style={{ color: '#4A7C59', fontFamily: 'Cormorant Garamond, serif', fontSize: '1.25rem', marginBottom: 6 }}>Glow Goddess Bowl</h3>
+          <h3 style={{ color: '#4A7C59', fontFamily: 'Cormorant Garamond, serif', fontSize: '1.25rem', marginBottom: 6 }}>Glow Goddess Bowl</h3>
           <div style={{ color: '#222', fontSize: 15, marginBottom: 8 }}>
             Quinoa, roasted sweet potatoes (Creole-spiced), crispy chickpeas, steamed kale, avocado, pomegranate seeds, and tahini-lemon dressing.
           </div>
           <div style={{ fontStyle: 'italic', color: '#4A7C59', fontSize: 14, marginBottom: 10 }}>Vibe: Bold Southern comfort with smoky paprika and garlic warmth.</div>
           <ul style={{ color: '#4A7C59', fontSize: 14, marginBottom: 10, paddingLeft: 18, marginTop: 0 }}>
-            <li>Protein &amp; Fiber from quinoa, chickpeas, and kale</li>
+            <li>Protein & Fiber from quinoa, chickpeas, and kale</li>
             <li>Rich in Antioxidants from pomegranate, kale, and sweet potatoes</li>
             <li>Healthy Fats from avocado and tahini</li>
-            <li>Gluten-Free &amp; Vegan</li>
+            <li>Gluten-Free & Vegan</li>
             <li>Creole seasoning adds warmth and depth</li>
           </ul>
           <div style={{ height: 140, background: '#e0efe6', borderRadius: 10, marginTop: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#4A7C59', fontWeight: 600, fontSize: 15 }}>
@@ -546,7 +996,7 @@ function MenuContent() {
         </div>
         {/* Herbal Harvest Bowl */}
         <div style={{ flex: '1 1 260px', minWidth: 260, background: '#f8f8f8', borderRadius: 14, padding: 24, boxShadow: '0 2px 12px rgba(74,124,89,0.06)' }}>
-      <h3 style={{ color: '#4A7C59', fontFamily: 'Cormorant Garamond, serif', fontSize: '1.25rem', marginBottom: 6 }}>Herbal Harvest Bowl</h3>
+          <h3 style={{ color: '#4A7C59', fontFamily: 'Cormorant Garamond, serif', fontSize: '1.25rem', marginBottom: 6 }}>Herbal Harvest Bowl</h3>
           <div style={{ color: '#222', fontSize: 15, marginBottom: 8 }}>
             Brown rice, grilled zucchini, roasted carrots, marinated lentils, microgreens, hemp seeds, and rosemary-garlic vinaigrette.
           </div>
@@ -563,7 +1013,7 @@ function MenuContent() {
         </div>
         {/* Immunity Boost Bowl */}
         <div style={{ flex: '1 1 260px', minWidth: 260, background: '#f8f8f8', borderRadius: 14, padding: 24, boxShadow: '0 2px 12px rgba(74,124,89,0.06)' }}>
-      <h3 style={{ color: '#4A7C59', fontFamily: 'Cormorant Garamond, serif', fontSize: '1.25rem', marginBottom: 6 }}>Immunity Boost Bowl</h3>
+          <h3 style={{ color: '#4A7C59', fontFamily: 'Cormorant Garamond, serif', fontSize: '1.25rem', marginBottom: 6 }}>Immunity Boost Bowl</h3>
           <div style={{ color: '#222', fontSize: 15, marginBottom: 8 }}>
             Wild rice, sautéed broccoli, ginger-garlic mushrooms, roasted beets, pumpkin seeds, and turmeric-citrus dressing.
           </div>
@@ -586,7 +1036,7 @@ function MenuContent() {
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 32, marginBottom: 40 }}>
         {/* Island Sunshine Bowl */}
         <div style={{ flex: '1 1 260px', minWidth: 260, background: '#f8f8f8', borderRadius: 14, padding: 24, boxShadow: '0 2px 12px rgba(74,124,89,0.06)' }}>
-      <h4 style={{ color: '#4A7C59', fontFamily: 'Cormorant Garamond, serif', fontSize: '1.1rem', marginBottom: 6 }}>Island Sunshine Bowl</h4>
+          <h4 style={{ color: '#4A7C59', fontFamily: 'Cormorant Garamond, serif', fontSize: '1.1rem', marginBottom: 6 }}>Island Sunshine Bowl</h4>
           <div style={{ color: '#222', fontSize: 15, marginBottom: 8 }}>
             Coconut rice, jerk-seasoned jackfruit, charred pineapple, black beans, shredded cabbage slaw, mango salsa, and lime-cilantro crema.
           </div>
@@ -603,7 +1053,7 @@ function MenuContent() {
         </div>
         {/* Green Goddess Detox Bowl */}
         <div style={{ flex: '1 1 260px', minWidth: 260, background: '#f8f8f8', borderRadius: 14, padding: 24, boxShadow: '0 2px 12px rgba(74,124,89,0.06)' }}>
-      <h4 style={{ color: '#4A7C59', fontFamily: 'Cormorant Garamond, serif', fontSize: '1.1rem', marginBottom: 6 }}>Green Goddess Detox Bowl</h4>
+          <h4 style={{ color: '#4A7C59', fontFamily: 'Cormorant Garamond, serif', fontSize: '1.1rem', marginBottom: 6 }}>Green Goddess Detox Bowl</h4>
           <div style={{ color: '#222', fontSize: 15, marginBottom: 8 }}>
             Kale, cucumber, avocado, quinoa, spirulina-lime dressing, edamame, and hemp seeds.
           </div>
@@ -620,7 +1070,7 @@ function MenuContent() {
         </div>
         {/* Creole Soul Bowl */}
         <div style={{ flex: '1 1 260px', minWidth: 260, background: '#f8f8f8', borderRadius: 14, padding: 24, boxShadow: '0 2px 12px rgba(74,124,89,0.06)' }}>
-      <h4 style={{ color: '#4A7C59', fontFamily: 'Cormorant Garamond, serif', fontSize: '1.1rem', marginBottom: 6 }}>Creole Soul Bowl</h4>
+          <h4 style={{ color: '#4A7C59', fontFamily: 'Cormorant Garamond, serif', fontSize: '1.1rem', marginBottom: 6 }}>Creole Soul Bowl</h4>
           <div style={{ color: '#222', fontSize: 15, marginBottom: 8 }}>
             Cajun-spiced red beans, dirty rice, roasted okra, garlicky greens, and smoked paprika aioli.
           </div>
@@ -637,7 +1087,7 @@ function MenuContent() {
         </div>
         {/* Autumn Harvest Glow Bowl (seasonal) */}
         <div style={{ flex: '1 1 260px', minWidth: 260, background: '#f8f8f8', borderRadius: 14, padding: 24, boxShadow: '0 2px 12px rgba(74,124,89,0.06)' }}>
-      <h4 style={{ color: '#4A7C59', fontFamily: 'Cormorant Garamond, serif', fontSize: '1.1rem', marginBottom: 6 }}>Autumn Harvest Glow Bowl (seasonal)</h4>
+          <h4 style={{ color: '#4A7C59', fontFamily: 'Cormorant Garamond, serif', fontSize: '1.1rem', marginBottom: 6 }}>Autumn Harvest Glow Bowl (seasonal)</h4>
           <div style={{ color: '#222', fontSize: 15, marginBottom: 8 }}>
             Farro, maple-roasted butternut squash, Brussels sprouts, cranberry chutney, pumpkin seeds, and sage tahini dressing.
           </div>
@@ -673,7 +1123,7 @@ function MenuContent() {
     </div>
   );
 }
-// ...existing code...
+
 function WellnessRoom() {
   return (
     <div style={{ padding: 40, maxWidth: 700, margin: '0 auto', fontFamily: 'Lora, Georgia, Times New Roman, serif', background: '#fff', borderRadius: 16, boxShadow: '0 2px 16px rgba(74,124,89,0.04)' }}>
@@ -683,19 +1133,17 @@ function WellnessRoom() {
           Your space for holistic support, guidance, and transformation. Book a 1-on-1 session, join a workshop, or sign up for upcoming classes and events!
         </p>
       </div>
-
       {/* 1-on-1 Consultations */}
       <div style={{ background: '#f8f8f8', borderRadius: 16, boxShadow: '0 2px 12px rgba(74,124,89,0.06)', padding: 28, marginBottom: 32 }}>
         <div style={{ fontSize: 28, marginBottom: 8 }}>🌿 1-on-1 Wellness & Nutrition Consultations</div>
         <div style={{ fontSize: 16, color: '#222', marginBottom: 10 }}>
           Personalized sessions to help you reach your health, nutrition, and lifestyle goals. Whether you’re looking to improve your diet, boost your energy, or create a holistic routine, we’ll craft a plan tailored just for you.
         </div>
-  <div style={{ color: '#4A7C59', fontSize: 15, marginBottom: 6 }}>Format: Phone or video call</div>
+        <div style={{ color: '#4A7C59', fontSize: 15, marginBottom: 6 }}>Format: Phone or video call</div>
         <ul style={{ fontSize: 15, color: '#222', marginBottom: 10, paddingLeft: 22 }}>
-          <li>Health & lifestyle assessment</li>
-          <li>Personalized wellness plan</li>
-          <li>Recipe and meal planning suggestions</li>
-          <li>Follow up email with resources</li>
+          <li>Personalized nutrition & wellness plans</li>
+          <li>Herbal and lifestyle recommendations</li>
+          <li>Support for plant-based eating, energy, digestion, and more</li>
         </ul>
         <a href="#" style={{
           display: 'inline-block',
@@ -710,7 +1158,6 @@ function WellnessRoom() {
           marginTop: 8
         }}>Book a Consultation</a>
       </div>
-
       {/* Workshops */}
       <div style={{ background: '#f8f8f8', borderRadius: 16, boxShadow: '0 2px 12px rgba(74,124,89,0.06)', padding: 28, marginBottom: 32 }}>
         <div style={{ fontSize: 24, marginBottom: 8 }}>📅 Workshops <span style={{ color: '#b94a48', fontSize: 15 }}>Coming Soon</span></div>
@@ -725,8 +1172,8 @@ function WellnessRoom() {
         <div style={{ fontSize: 16, color: '#222', marginBottom: 10 }}>
           Inspiring classes and community events to expand your knowledge, try new wellness practices, and connect with like minded people. Events may be held online or in person depending on the topic and format.
         </div>
-  <div style={{ color: '#4A7C59', fontSize: 15, marginBottom: 10 }}>Join the newsletter for upcoming announcements.</div>
-        <a href="#" style={{
+        <div style={{ color: '#4A7C59', fontSize: 15, marginBottom: 10 }}>Join the newsletter for upcoming announcements.</div>
+        <a href="#newsletter" style={{
           display: 'inline-block',
           background: 'linear-gradient(90deg, #4A7C59 0%, #7BC67E 100%)',
           color: '#fff',
@@ -737,537 +1184,66 @@ function WellnessRoom() {
           textDecoration: 'none',
           boxShadow: '0 2px 8px rgba(74,124,89,0.10)',
           marginTop: 8
-        }}>Join Newsletter</a>
+  }}>Join the Table</a>
       </div>
     </div>
   );
 }
-function Shop() {
-  return (
-    <div style={{ padding: '48px 16px', maxWidth: 900, margin: '0 auto', fontFamily: 'Lora, Georgia, Times New Roman, serif', background: '#fff', borderRadius: 16, boxShadow: '0 2px 16px rgba(74,124,89,0.04)' }}>
-      <h2 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '2.2rem', color: '#4A7C59', marginBottom: 24, textAlign: 'center' }}>The Pantry</h2>
-      <p style={{ fontSize: '1.15rem', lineHeight: 1.7, color: '#222', margin: '0 auto 32px auto', maxWidth: 650, textAlign: 'center' }}>
-        Discover our curated collection of wellness essentials: sea moss gels, herbal teas, superfood mixes, and more. Each product is crafted with premium, plant based ingredients to support your health, energy, and daily rituals. Shop small batch, vegan, and nutrient rich pantry staples for a vibrant, holistic lifestyle.
-      </p>
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 32, justifyContent: 'center' }}>
-  {/* 1. Vitality Glow Seamoss Gel – Pineapple Ginger + Curcumin */}
-  <a id="seamoss-gel" href="/checkout" style={{ textDecoration: 'none', color: 'inherit' }}>
-  <div style={{ background: '#f8f8f8', borderRadius: 16, boxShadow: '0 2px 12px rgba(74,124,89,0.06)', maxWidth: 340, flex: '1 1 300px', padding: 24, textAlign: 'center', transition: 'box-shadow 0.2s', cursor: 'pointer' }}>
-          <div style={{ marginBottom: 18 }}>
-            <div style={{ width: '100%', height: 160, background: '#eee', borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#bbb', fontSize: 18 }}>
-              Image Placeholder
-            </div>
-          </div>
-          <h3 style={{ color: '#4A7C59', fontSize: '1.15rem', marginBottom: 6 }}>Vitality Glow Seamoss Gel – Pineapple Ginger + Curcumin</h3>
-          <div style={{ color: '#888', fontSize: 15, marginBottom: 4 }}>8oz – $20 | 16oz – $35</div>
-          <div style={{ fontSize: 15, marginBottom: 10 }}>
-            A golden burst of plant-powered vitality. Our Pineapple Ginger + Curcumin Seamoss Gel blends wildcrafted seamoss with tropical pineapple, zesty ginger, and anti-inflammatory curcumin for a vibrant wellness boost. Perfect in smoothies, teas, or straight off the spoon.
-          </div>
-          <div style={{ fontSize: 14, color: '#4A7C59', marginBottom: 6 }}><b>Benefits:</b> Immune support, anti-inflammatory, digestive health, energy boost.</div>
-          <div style={{ fontSize: 13, color: '#888' }}><b>Storage:</b> Refrigerate after opening. Lasts 3–4 weeks chilled or freeze for up to 6 months.</div>
-  </div>
-  </a>
-        {/* 2. Radiance Revive Seamoss Gel – Pitaya Infused */}
-  <a href="/checkout" style={{ textDecoration: 'none', color: 'inherit' }}>
-  <div style={{ background: '#f8f8f8', borderRadius: 16, boxShadow: '0 2px 12px rgba(74,124,89,0.06)', maxWidth: 340, flex: '1 1 300px', padding: 24, textAlign: 'center', transition: 'box-shadow 0.2s', cursor: 'pointer' }}>
-          <div style={{ marginBottom: 18 }}>
-            <div style={{ width: '100%', height: 160, background: '#eee', borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#bbb', fontSize: 18 }}>
-              Image Placeholder
-            </div>
-          </div>
-          <h3 style={{ color: '#4A7C59', fontSize: '1.15rem', marginBottom: 6 }}>Radiance Revive Seamoss Gel – Pitaya Infused</h3>
-          <div style={{ color: '#888', fontSize: 15, marginBottom: 4 }}>8oz – $22 | 16oz – $37</div>
-          <div style={{ fontSize: 15, marginBottom: 10 }}>
-            Bright, beautiful, and bursting with antioxidants—this pitaya (dragon fruit) infused seamoss gel supports skin glow, energy, and immunity with every spoonful. Sweet and subtly tropical, it’s the perfect daily wellness ritual.
-          </div>
-          <div style={{ fontSize: 14, color: '#4A7C59', marginBottom: 6 }}><b>Benefits:</b> Antioxidant-rich, supports skin health, boosts hydration, aids digestion.</div>
-          <div style={{ fontSize: 13, color: '#888' }}><b>Storage:</b> Refrigerate after opening. Lasts 3–4 weeks chilled or freeze for up to 6 months.</div>
-  </div>
-  </a>
-  {/* 3. Calm & Restore Herbal Tea Blend */}
-  <a id="calm-restore-tea" href="/checkout" style={{ textDecoration: 'none', color: 'inherit' }}>
-  <div style={{ background: '#f8f8f8', borderRadius: 16, boxShadow: '0 2px 12px rgba(74,124,89,0.06)', maxWidth: 340, flex: '1 1 300px', padding: 24, textAlign: 'center', transition: 'box-shadow 0.2s', cursor: 'pointer' }}>
-          <div style={{ marginBottom: 18 }}>
-            <div style={{ width: '100%', height: 160, background: '#eee', borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#bbb', fontSize: 18 }}>
-              Image Placeholder
-            </div>
-          </div>
-          <h3 style={{ color: '#4A7C59', fontSize: '1.15rem', marginBottom: 6 }}>Calm & Restore Herbal Tea Blend</h3>
-          <div style={{ color: '#888', fontSize: 15, marginBottom: 4 }}>4oz Pouch – $15</div>
-          <div style={{ fontSize: 15, marginBottom: 10 }}>
-            A soothing blend of chamomile, lemon balm, lavender, and spearmint crafted to quiet the mind, relax the body, and restore balance. Perfect for winding down at the end of the day or centering before meditation.
-          </div>
-          <div style={{ fontSize: 14, color: '#4A7C59', marginBottom: 6 }}><b>Benefits:</b> Stress relief, improved sleep, digestive support.</div>
-  </div>
-  </a>
-        {/* 4. Tropical Vitality Tea – Soursop, Rooibos & Moringa */}
-  <a href="/checkout" style={{ textDecoration: 'none', color: 'inherit' }}>
-  <div style={{ background: '#f8f8f8', borderRadius: 16, boxShadow: '0 2px 12px rgba(74,124,89,0.06)', maxWidth: 340, flex: '1 1 300px', padding: 24, textAlign: 'center', transition: 'box-shadow 0.2s', cursor: 'pointer' }}>
-          <div style={{ marginBottom: 18 }}>
-            <div style={{ width: '100%', height: 160, background: '#eee', borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#bbb', fontSize: 18 }}>
-              Image Placeholder
-            </div>
-          </div>
-          <h3 style={{ color: '#4A7C59', fontSize: '1.15rem', marginBottom: 6 }}>Tropical Vitality Tea – Soursop, Rooibos & Moringa</h3>
-          <div style={{ color: '#888', fontSize: 15, marginBottom: 4 }}>4oz Pouch – $17</div>
-          <div style={{ fontSize: 15, marginBottom: 10 }}>
-            An uplifting, island-inspired blend featuring antioxidant-rich soursop leaf, earthy rooibos, and nutrient-packed moringa. Naturally caffeine-free with a light tropical flavor and a gentle energy lift.
-          </div>
-          <div style={{ fontSize: 14, color: '#4A7C59', marginBottom: 6 }}><b>Benefits:</b> Immune support, antioxidant boost, anti-inflammatory properties.</div>
-  </div>
-  </a>
-        {/* 5. Loose Herbs – Moringa Leaf */}
-        <div style={{ background: '#f8f8f8', borderRadius: 16, boxShadow: '0 2px 12px rgba(74,124,89,0.06)', maxWidth: 340, flex: '1 1 300px', padding: 24, textAlign: 'center' }}>
-          <div style={{ marginBottom: 18 }}>
-            <div style={{ width: '100%', height: 160, background: '#eee', borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#bbb', fontSize: 18 }}>
-              Image Placeholder
-            </div>
-          </div>
-          <h3 style={{ color: '#4A7C59', fontSize: '1.15rem', marginBottom: 6 }}>Loose Herbs – Moringa Leaf</h3>
-          <div style={{ color: '#888', fontSize: 15, marginBottom: 4 }}>4oz Bag – $12</div>
-          <div style={{ fontSize: 15, marginBottom: 10 }}>
-            Known as the “miracle tree,” moringa is rich in vitamins, minerals, and amino acids. Add to teas, smoothies, or soups for a nutritional boost.
-          </div>
-          <div style={{ fontSize: 14, color: '#4A7C59', marginBottom: 6 }}><b>Benefits:</b> Nutrient-dense superfood, energy support, immune health.</div>
-        </div>
-        {/* 6. Loose Herbs – Burdock Root */}
-        <div style={{ background: '#f8f8f8', borderRadius: 16, boxShadow: '0 2px 12px rgba(74,124,89,0.06)', maxWidth: 340, flex: '1 1 300px', padding: 24, textAlign: 'center' }}>
-          <div style={{ marginBottom: 18 }}>
-            <div style={{ width: '100%', height: 160, background: '#eee', borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#bbb', fontSize: 18 }}>
-              Image Placeholder
-            </div>
-          </div>
-          <h3 style={{ color: '#4A7C59', fontSize: '1.15rem', marginBottom: 6 }}>Loose Herbs – Burdock Root</h3>
-          <div style={{ color: '#888', fontSize: 15, marginBottom: 4 }}>4oz Bag – $14</div>
-          <div style={{ fontSize: 15, marginBottom: 10 }}>
-            A time-honored herb for detoxification and skin health, burdock root offers earthy depth to teas and tonics.
-          </div>
-          <div style={{ fontSize: 14, color: '#4A7C59', marginBottom: 6 }}><b>Benefits:</b> Liver support, skin health, anti-inflammatory properties.</div>
-        </div>
-        {/* 7. Moringa Pancake & Waffle Mix (Vegan) */}
-        <div style={{ background: '#f8f8f8', borderRadius: 16, boxShadow: '0 2px 12px rgba(74,124,89,0.06)', maxWidth: 340, flex: '1 1 300px', padding: 24, textAlign: 'center' }}>
-          <div style={{ marginBottom: 18 }}>
-            <div style={{ width: '100%', height: 160, background: '#eee', borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#bbb', fontSize: 18 }}>
-              Image Placeholder
-            </div>
-          </div>
-          <h3 style={{ color: '#4A7C59', fontSize: '1.15rem', marginBottom: 6 }}>Moringa Pancake & Waffle Mix (Vegan)</h3>
-          <div style={{ color: '#888', fontSize: 15, marginBottom: 4 }}>16oz Bag – $18</div>
-          <div style={{ fontSize: 15, marginBottom: 10 }}>
-            Wholesome meets delicious—this vegan pancake and waffle mix blends whole grain flour, coconut sugar, and moringa for a subtly sweet, nutrient-packed breakfast. Just add plant milk and a splash of oil for a quick, fluffy stack.
-          </div>
-          <div style={{ fontSize: 14, color: '#4A7C59', marginBottom: 6 }}><b>Benefits:</b> Antioxidants, plant-based protein, vitamins & minerals.</div>
-        </div>
-      </div>
-    </div>
-  );
-}
-// function Subscriptions() { return <div style={{ padding: 40 }}><h2>Subscriptions</h2><p>Meal plans, wellness boxes, and memberships.</p></div>; }
-// ...existing code...
-function Services() {
-  return (
-    <div style={{ padding: '48px 16px', maxWidth: 900, margin: '0 auto', fontFamily: 'Lora, Georgia, Times New Roman, serif', background: '#fff', borderRadius: 16, boxShadow: '0 2px 16px rgba(74,124,89,0.04)' }}>
-      <h2 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '2.2rem', color: '#4A7C59', marginBottom: 18, textAlign: 'center' }}>The Holistic Hub</h2>
-      <div style={{ maxWidth: 700, margin: '0 auto', marginBottom: 24 }}>
-        <p style={{ fontSize: '1.15rem', color: '#222', textAlign: 'center', marginBottom: 18 }}>
-          Welcome to your digital wellness library! Discover a curated collection of free and premium resources to support your plant-based journey, holistic self-care, and vibrant living. Download guides, cookbooks, and wellness tools instantly—everything you need to glow from the inside out.
-        </p>
-        <h3 style={{ color: '#4A7C59', fontFamily: 'Cormorant Garamond, serif', fontSize: '1.3rem', marginBottom: 12, textAlign: 'center' }}>Categories You’ll Find Here</h3>
-        <ul style={{ fontSize: 16, color: '#222', marginBottom: 0, paddingLeft: 22, textAlign: 'left', maxWidth: 600, margin: '0 auto' }}>
-          <li><b>Cookbooks:</b> Vegan, gluten-free, seasonal eating, and cultural-inspired recipes.</li>
-          <li><b>Holistic Guides:</b> Herbal remedies, mindfulness, stress relief, and natural wellness.</li>
-          <li><b>Self-Help Books:</b> Goal setting, confidence building, and daily rituals for a balanced life.</li>
-        </ul>
-      </div>
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 32, justifyContent: 'center', marginBottom: 40 }}>
-        {/* Always Free Resource */}
-        <div style={{ background: '#f8f8f8', borderRadius: 16, boxShadow: '0 2px 12px rgba(74,124,89,0.06)', maxWidth: 340, flex: '1 1 300px', padding: 24, textAlign: 'center', position: 'relative' }}>
-          <div style={{ fontSize: 32, marginBottom: 8 }}>📚</div>
-          <h3 style={{ color: '#4A7C59', fontSize: '1.15rem', marginBottom: 6 }}>7-Day Plant-Powered Kickstart Guide</h3>
-          <div style={{ color: '#888', fontSize: 15, marginBottom: 4 }}>FREE (Instant Download)</div>
-          <div style={{ fontSize: 15, marginBottom: 10 }}>
-            A starter guide for anyone looking to embrace plant-based eating with ease. Includes grocery list, 7 days of simple recipes, and wellness tips for a healthier lifestyle.
-          </div>
-          <div style={{ color: '#4A7C59', fontSize: 14, marginBottom: 8 }}>Format: PDF Download</div>
-          <a href="#" style={{
-            display: 'inline-block',
-            background: 'linear-gradient(90deg, #4A7C59 0%, #7BC67E 100%)',
-            color: '#fff',
-            padding: '12px 32px',
-            borderRadius: 24,
-            fontSize: 17,
-            fontWeight: 700,
-            textDecoration: 'none',
-            boxShadow: '0 2px 8px rgba(74,124,89,0.10)',
-            marginTop: 8
-          }}>Download Free</a>
-        </div>
-        {/* Premium Ebook */}
-        <div style={{ background: '#f8f8f8', borderRadius: 16, boxShadow: '0 2px 12px rgba(74,124,89,0.06)', maxWidth: 340, flex: '1 1 300px', padding: 24, textAlign: 'center', position: 'relative' }}>
-          <div style={{ fontSize: 32, marginBottom: 8 }}>📖</div>
-          <h3 style={{ color: '#4A7C59', fontSize: '1.15rem', marginBottom: 6 }}>Glow from Within: The Holistic Vegan Cookbook</h3>
-          <div style={{ color: '#888', fontSize: 15, marginBottom: 4 }}>$18 (Instant PDF Download)</div>
-          <div style={{ fontSize: 15, marginBottom: 10 }}>
-            A beautifully curated ebook with 40+ vibrant vegan recipes, holistic lifestyle tips, herbal remedies, and self-care rituals.
-          </div>
-          <div style={{ color: '#4A7C59', fontSize: 14, marginBottom: 8 }}>Format: PDF Download</div>
-          <a href="#" style={{
-            display: 'inline-block',
-            background: 'linear-gradient(90deg, #4A7C59 0%, #7BC67E 100%)',
-            color: '#fff',
-            padding: '12px 32px',
-            borderRadius: 24,
-            fontSize: 17,
-            fontWeight: 700,
-            textDecoration: 'none',
-            boxShadow: '0 2px 8px rgba(74,124,89,0.10)',
-            marginTop: 8
-          }}>Buy & Download</a>
-        </div>
-        {/* Holistic Self-Care Guide */}
-        <div style={{ background: '#f8f8f8', borderRadius: 16, boxShadow: '0 2px 12px rgba(74,124,89,0.06)', maxWidth: 340, flex: '1 1 300px', padding: 24, textAlign: 'center', position: 'relative' }}>
-          <div style={{ fontSize: 32, marginBottom: 8 }}>🛒</div>
-          <h3 style={{ color: '#4A7C59', fontSize: '1.15rem', marginBottom: 6 }}>Holistic Self-Care Guide</h3>
-          <div style={{ color: '#888', fontSize: 15, marginBottom: 4 }}>$12 (PDF Download)</div>
-          <div style={{ fontSize: 15, marginBottom: 10 }}>
-            A complete wellness roadmap with daily rituals, herbal tea recipes, affirmations, and stress-reducing practices.
-          </div>
-          <div style={{ color: '#4A7C59', fontSize: 14, marginBottom: 8 }}>Format: PDF Download</div>
-          <a href="#" style={{
-            display: 'inline-block',
-            background: 'linear-gradient(90deg, #4A7C59 0%, #7BC67E 100%)',
-            color: '#fff',
-            padding: '12px 32px',
-            borderRadius: 24,
-            fontSize: 17,
-            fontWeight: 700,
-            textDecoration: 'none',
-            boxShadow: '0 2px 8px rgba(74,124,89,0.10)',
-            marginTop: 8
-          }}>Buy & Download</a>
-        </div>
-        {/* Herbal Healing Pantry Guide */}
-        <div style={{ background: '#f8f8f8', borderRadius: 16, boxShadow: '0 2px 12px rgba(74,124,89,0.06)', maxWidth: 340, flex: '1 1 300px', padding: 24, textAlign: 'center', position: 'relative' }}>
-          <div style={{ fontSize: 32, marginBottom: 8 }}>🛒</div>
-          <h3 style={{ color: '#4A7C59', fontSize: '1.15rem', marginBottom: 6 }}>Herbal Healing Pantry Guide</h3>
-          <div style={{ color: '#888', fontSize: 15, marginBottom: 4 }}>$9 (PDF Download)</div>
-          <div style={{ fontSize: 15, marginBottom: 10 }}>
-            Learn how to stock your kitchen with natural, immunity-boosting herbs, spices, and plant-based essentials.
-          </div>
-          <div style={{ color: '#4A7C59', fontSize: 14, marginBottom: 8 }}>Format: PDF Download</div>
-          <a href="#" style={{
-            display: 'inline-block',
-            background: 'linear-gradient(90deg, #4A7C59 0%, #7BC67E 100%)',
-            color: '#fff',
-            padding: '12px 32px',
-            borderRadius: 24,
-            fontSize: 17,
-            fontWeight: 700,
-            textDecoration: 'none',
-            boxShadow: '0 2px 8px rgba(74,124,89,0.10)',
-            marginTop: 8
-          }}>Buy & Download</a>
-        </div>
-      </div>
-  {/* Categories and description moved to top */}
-    </div>
-  );
-}
-// ...existing code...
-function Blog() {
-  return (
-    <div style={{ padding: 0, maxWidth: 900, margin: '0 auto', fontFamily: 'Lora, Georgia, Times New Roman, serif', background: '#fff', borderRadius: 16, boxShadow: '0 2px 16px rgba(74,124,89,0.04)' }}>
-      {/* Hero Section */}
-      <div style={{ background: 'linear-gradient(90deg, #e8f5e9 0%, #f8fff8 100%)', borderTopLeftRadius: 16, borderTopRightRadius: 16, padding: '48px 24px 32px 24px', textAlign: 'center' }}>
-        <h2 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '2.6rem', color: '#4A7C59', marginBottom: 10 }}>Fresh Press</h2>
-        <div style={{ fontSize: '1.25rem', color: '#222', marginBottom: 22 }}>Your go-to source for fresh recipes, wellness tips, and KB’s latest updates.</div>
-        <a href="#" style={{
-          display: 'inline-block',
-          background: 'linear-gradient(90deg, #4A7C59 0%, #7BC67E 100%)',
-          color: '#fff',
-          padding: '14px 38px',
-          borderRadius: 28,
-          fontSize: 18,
-          fontWeight: 700,
-          textDecoration: 'none',
-          boxShadow: '0 2px 8px rgba(74,124,89,0.10)',
-          marginTop: 8,
-          marginBottom: 0
-        }}>Join the Glow List</a>
-      </div>
 
-      {/* Featured/Pinned Post: Glow Goddess Bowl */}
-      <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 32, background: '#fffbe7', margin: '32px 0 0 0', borderRadius: 16, boxShadow: '0 2px 12px rgba(255,200,80,0.08)', padding: 24, maxWidth: 820, marginLeft: 'auto', marginRight: 'auto' }}>
-        <div style={{ width: 140, height: 140, background: '#e0efe6', borderRadius: 12, marginRight: 18, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#4A7C59', fontWeight: 600, fontSize: 15, textAlign: 'center' }}>
-          (Image Placeholder: Bright, colorful bowl with greens, sweet potatoes, and avocado slices)
-        </div>
-        <div style={{ flex: 1 }}>
-          <div style={{ color: '#b94a48', fontWeight: 700, fontSize: 15, marginBottom: 4 }}>Featured</div>
-          <div style={{ fontSize: 22, color: '#4A7C59', fontWeight: 700, marginBottom: 6 }}>Glow Goddess Bowl</div>
-          <div style={{ color: '#888', fontSize: 15, marginBottom: 8 }}>August 2025 • VIP Glow Bowls</div>
-          <div style={{ fontSize: 15, marginBottom: 10 }}>
-            Quinoa, roasted sweet potatoes (Creole-spiced), crispy chickpeas, steamed kale, avocado, pomegranate seeds, and tahini-lemon dressing.<br/>
-            <span style={{ fontStyle: 'italic', color: '#4A7C59' }}>Vibe: Bold Southern comfort with smoky paprika and garlic warmth.</span>
-          </div>
-          <ul style={{ color: '#4A7C59', fontSize: 14, marginBottom: 10, paddingLeft: 18, marginTop: 0 }}>
-            <li>Protein &amp; Fiber from quinoa, chickpeas, and kale</li>
-            <li>Rich in Antioxidants from pomegranate, kale, and sweet potatoes</li>
-            <li>Healthy Fats from avocado and tahini</li>
-            <li>Gluten-Free &amp; Vegan</li>
-            <li>Creole seasoning adds warmth and depth</li>
-          </ul>
-          <a href="#" style={{
-            display: 'inline-block',
-            background: 'linear-gradient(90deg, #4A7C59 0%, #7BC67E 100%)',
-            color: '#fff',
-            padding: '10px 24px',
-            borderRadius: 20,
-            fontSize: 15,
-            fontWeight: 700,
-            textDecoration: 'none',
-            boxShadow: '0 2px 8px rgba(74,124,89,0.10)',
-            marginTop: 4
-          }}>Read More</a>
-        </div>
-      </div>
-
-      {/* Categories */}
-      <div style={{ display: 'flex', gap: 18, justifyContent: 'center', margin: '32px 0 18px 0' }}>
-        <div style={{ fontSize: 15, color: '#4A7C59', background: '#e8f5e9', borderRadius: 16, padding: '6px 18px', fontWeight: 700, display: 'flex', alignItems: 'center', gap: 6 }}>
-          <span role="img" aria-label="Recipes">🥗</span> Recipes
-        </div>
-        <div style={{ fontSize: 15, color: '#4A7C59', background: '#e8f5e9', borderRadius: 16, padding: '6px 18px', fontWeight: 700, display: 'flex', alignItems: 'center', gap: 6 }}>
-          <span role="img" aria-label="Wellness Tips">🌱</span> Wellness Tips
-        </div>
-        <div style={{ fontSize: 15, color: '#4A7C59', background: '#e8f5e9', borderRadius: 16, padding: '6px 18px', fontWeight: 700, display: 'flex', alignItems: 'center', gap: 6 }}>
-          <span role="img" aria-label="Product Highlights">🛒</span> Product Highlights
-        </div>
-      </div>
-
-      {/* Latest Posts */}
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 32, justifyContent: 'center', marginBottom: 40 }}>
-        {/* Blog Card 1 */}
-        <div style={{ background: '#f8f8f8', borderRadius: 16, boxShadow: '0 2px 12px rgba(74,124,89,0.06)', maxWidth: 340, flex: '1 1 300px', padding: 24, textAlign: 'left', position: 'relative' }}>
-          <div style={{ fontSize: 18, color: '#4A7C59', fontWeight: 700, marginBottom: 8 }}>How to Build a Plant Powered Pantry</div>
-          <div style={{ color: '#888', fontSize: 15, marginBottom: 10 }}>August 2025 • Wellness Tips</div>
-          <div style={{ fontSize: 15, marginBottom: 12 }}>
-            Discover the essential ingredients and simple swaps to make your kitchen a hub for vibrant, plant-based meals. Includes a printable checklist!
-          </div>
-          <a href="#" style={{
-            display: 'inline-block',
-            background: 'linear-gradient(90deg, #4A7C59 0%, #7BC67E 100%)',
-            color: '#fff',
-            padding: '10px 24px',
-            borderRadius: 20,
-            fontSize: 15,
-            fontWeight: 700,
-            textDecoration: 'none',
-            boxShadow: '0 2px 8px rgba(74,124,89,0.10)',
-            marginTop: 8
-          }}>Read More</a>
-        </div>
-        {/* Blog Card 2 */}
-        <div style={{ background: '#f8f8f8', borderRadius: 16, boxShadow: '0 2px 12px rgba(74,124,89,0.06)', maxWidth: 340, flex: '1 1 300px', padding: 24, textAlign: 'left', position: 'relative' }}>
-          <div style={{ fontSize: 18, color: '#4A7C59', fontWeight: 700, marginBottom: 8 }}>Herbal Teas for Everyday Wellness</div>
-          <div style={{ color: '#888', fontSize: 15, marginBottom: 10 }}>July 2025 • Recipes</div>
-          <div style={{ fontSize: 15, marginBottom: 12 }}>
-            Simple herbal tea blends to support immunity, relaxation, and digestion. Learn how to brew and blend your own at home.
-          </div>
-          <a href="#" style={{
-            display: 'inline-block',
-            background: 'linear-gradient(90deg, #4A7C59 0%, #7BC67E 100%)',
-            color: '#fff',
-            padding: '10px 24px',
-            borderRadius: 20,
-            fontSize: 15,
-            fontWeight: 700,
-            textDecoration: 'none',
-            boxShadow: '0 2px 8px rgba(74,124,89,0.10)',
-            marginTop: 8
-          }}>Read More</a>
-        </div>
-        {/* Blog Card 3 */}
-        <div style={{ background: '#f8f8f8', borderRadius: 16, boxShadow: '0 2px 12px rgba(74,124,89,0.06)', maxWidth: 340, flex: '1 1 300px', padding: 24, textAlign: 'left', position: 'relative' }}>
-          <div style={{ fontSize: 18, color: '#4A7C59', fontWeight: 700, marginBottom: 8 }}>Glow Bowl Meal Prep: 5 Days, 1 Hour</div>
-          <div style={{ color: '#888', fontSize: 15, marginBottom: 10 }}>July 2025 • Product Highlights</div>
-          <div style={{ fontSize: 15, marginBottom: 12 }}>
-            Meal prep made easy! Step-by-step guide to prepping a week of nourishing Glow Bowls with minimal effort and maximum flavor.
-          </div>
-          <a href="#" style={{
-            display: 'inline-block',
-            background: 'linear-gradient(90deg, #4A7C59 0%, #7BC67E 100%)',
-            color: '#fff',
-            padding: '10px 24px',
-            borderRadius: 20,
-            fontSize: 15,
-            fontWeight: 700,
-            textDecoration: 'none',
-            boxShadow: '0 2px 8px rgba(74,124,89,0.10)',
-            marginTop: 8
-          }}>Read More</a>
-        </div>
-      </div>
-
-      {/* Newsletter Signup Block */}
-      <div style={{ background: '#e8f5e9', borderRadius: 16, boxShadow: '0 2px 12px rgba(74,124,89,0.06)', maxWidth: 600, margin: '0 auto 40px auto', padding: 32, textAlign: 'center' }}>
-        <div style={{ fontSize: 18, color: '#4A7C59', fontWeight: 700, marginBottom: 10 }}>Get free recipes, discounts, and wellness tips straight to your inbox.</div>
-        <form style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }} onSubmit={e => e.preventDefault()}>
-          <input type="email" placeholder="Your email address" required style={{ padding: '12px 18px', borderRadius: 20, border: '1px solid #b2dfdb', fontSize: 16, width: 260, marginBottom: 0 }} />
-          <button type="submit" style={{
-            background: 'linear-gradient(90deg, #4A7C59 0%, #7BC67E 100%)',
-            color: '#fff',
-            padding: '12px 32px',
-            borderRadius: 24,
-            fontSize: 17,
-            fontWeight: 700,
-            border: 'none',
-            cursor: 'pointer',
-            boxShadow: '0 2px 8px rgba(74,124,89,0.10)'
-          }}>Sign Me Up</button>
-        </form>
-      </div>
-    </div>
-  );
-}
-// ...existing code...
-function Testimonials() {
+// Identical Ritual Crate Card component
+function renderRitualCrateCard() {
   return (
-    <div style={{ padding: 40, maxWidth: 800, margin: '0 auto', fontFamily: 'Lora, Georgia, Times New Roman, serif', background: '#fff', borderRadius: 16, boxShadow: '0 2px 16px rgba(74,124,89,0.04)' }}>
-      <h2 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '2.2rem', color: '#4A7C59', marginBottom: 10, textAlign: 'center' }}>Wellness Wins</h2>
-      <div style={{ fontSize: '1.15rem', color: '#222', textAlign: 'center', marginBottom: 32 }}>
-        Real stories. Real results. See how our sea moss, holistic meals, and wellness products are transforming lives.
+    <div style={{
+      background: '#f8f8f8',
+      borderRadius: '16px',
+      boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
+      padding: '32px',
+      marginBottom: '32px',
+      maxWidth: '500px',
+      width: '100%',
+      fontFamily: 'Lora, Georgia, Times New Roman, serif',
+      color: '#222',
+    }}>
+      <h3 style={{ color: '#4A7C59', fontFamily: 'Cormorant Garamond, serif', fontSize: '1.7rem', marginBottom: 10, fontWeight: 500 }}>✨ The Ritual Crate</h3>
+      <div style={{ fontSize: '1.1rem', marginBottom: 18 }}>
+        A monthly wellness experience from The Holistic Table
       </div>
-
-      {/* Featured Testimonials */}
-      <div style={{ marginBottom: 36 }}>
-        <h3 style={{ color: '#4A7C59', fontFamily: 'Cormorant Garamond, serif', fontSize: '1.3rem', marginBottom: 18, textAlign: 'center' }}>Featured Testimonials</h3>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 24, justifyContent: 'center' }}>
-          {/* Testimonial 1 */}
-          <div style={{ background: '#f8f8f8', borderRadius: 14, boxShadow: '0 2px 12px rgba(74,124,89,0.06)', maxWidth: 340, flex: '1 1 300px', padding: 24, marginBottom: 0 }}>
-            <div style={{ fontSize: 16, color: '#222', marginBottom: 12, fontStyle: 'italic' }}>
-              “The sea moss advanced infinite age helps boost your immunity.”
-            </div>
-            <div style={{ color: '#4A7C59', fontSize: 15, fontWeight: 700 }}>— Amazon Reviewer</div>
-          </div>
-          {/* Testimonial 2 */}
-          <div style={{ background: '#f8f8f8', borderRadius: 14, boxShadow: '0 2px 12px rgba(74,124,89,0.06)', maxWidth: 340, flex: '1 1 300px', padding: 24, marginBottom: 0 }}>
-            <div style={{ fontSize: 16, color: '#222', marginBottom: 12, fontStyle: 'italic' }}>
-              “It’s excellent for easing cold and flu symptoms and boosting the immune system—perfect for the whole family!”
-            </div>
-            <div style={{ color: '#4A7C59', fontSize: 15, fontWeight: 700 }}>— KB’s Vegan Kitchen Facebook Page</div>
-          </div>
-          {/* Testimonial 3 */}
-          <div style={{ background: '#f8f8f8', borderRadius: 14, boxShadow: '0 2px 12px rgba(74,124,89,0.06)', maxWidth: 340, flex: '1 1 300px', padding: 24, marginBottom: 0 }}>
-            <div style={{ fontSize: 16, color: '#222', marginBottom: 12, fontStyle: 'italic' }}>
-              “Great for erectile dysfunction and Libido in both Men & Women.”
-            </div>
-            <div style={{ color: '#4A7C59', fontSize: 15, fontWeight: 700 }}>— Facebook Group Feedback</div>
-          </div>
-        </div>
-      </div>
-
-      {/* Share Your Wellness Story & Rate Products */}
-      <div style={{ marginTop: 48, textAlign: 'center' }}>
-        <h3 style={{ color: '#4A7C59', fontFamily: 'Cormorant Garamond, serif', fontSize: '1.2rem', marginBottom: 10 }}>Share Your Wellness Story & Rate Our Products</h3>
-        <div style={{ fontSize: 16, color: '#222', marginBottom: 18 }}>
-          We’d love to hear how The Holistic Table by KB has helped you! Whether it’s a favorite glow bowl, sea moss blend, tea, or pantry item—your story matters. You can also rate any product or subscription you’ve tried!
-        </div>
-        <a href="#" style={{
-          display: 'inline-block',
-          background: 'linear-gradient(90deg, #4A7C59 0%, #7BC67E 100%)',
-          color: '#fff',
-          padding: '14px 38px',
-          borderRadius: 28,
-          fontSize: 18,
-          fontWeight: 700,
-          textDecoration: 'none',
-          boxShadow: '0 2px 8px rgba(74,124,89,0.10)',
-          marginTop: 8,
-          marginBottom: 0
-        }}>Click Here to Share Your Experience or Rate a Product</a>
-        <div style={{ fontSize: 15, color: '#4A7C59', marginTop: 18, marginBottom: 0 }}>
-          ⭐️⭐️⭐️⭐️⭐️ <span style={{ color: '#222', fontWeight: 500 }}>Rate any item or subscription you’ve tried!</span>
-        </div>
-      </div>
-    </div>
-  );
-}
-function FAQs() {
-  return (
-    <div style={{ padding: 40, maxWidth: 700, margin: '0 auto', fontFamily: 'Lora, Georgia, Times New Roman, serif', background: '#fff', borderRadius: 16, boxShadow: '0 2px 16px rgba(74,124,89,0.04)' }}>
-      <h2 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '2.2rem', color: '#4A7C59', marginBottom: 18, textAlign: 'center' }}>Frequently Asked Questions</h2>
-      <div style={{ fontSize: 16, color: '#222', marginBottom: 28, textAlign: 'center' }}>
-        Find answers to our most common questions about products, shipping, subscriptions, and more.
-      </div>
-      <div style={{ fontSize: 16, color: '#222' }}>
-        <ol style={{ paddingLeft: 20 }}>
-          <li style={{ marginBottom: 18 }}>
-            <b>What is The Holistic Table by KB?</b><br />
-            The Holistic Table by KB is your space for plant-powered wellness, offering nourishing recipes, superfood blends, holistic self-care tools, workshops, and resources for living vibrantly.
-          </li>
-          <li style={{ marginBottom: 18 }}>
-            <b>Are all your products natural and vegan?</b><br />
-            Yes. Every product at The Holistic Table by KB is plant-based, cruelty-free, and made with high-quality, natural ingredients.
-          </li>
-          <li style={{ marginBottom: 18 }}>
-            <b>Do you ship products?</b><br />
-            Yes, we ship select items nationwide. Shipping is calculated at checkout based on your location and order size.
-          </li>
-          <li style={{ marginBottom: 18 }}>
-            <b>How should I store Sea Moss gel and herbal blends?</b><br />
-            <b>Sea Moss Gel:</b> Keep refrigerated upon arrival. Lasts 3–4 weeks in the fridge or up to 6 months frozen.<br />
-            <b>Herbal Blends:</b> Store in a cool, dry place away from direct sunlight.
-          </li>
-          <li style={{ marginBottom: 18 }}>
-            <b>Will there be workshops or events?</b><br />
-            Yes. Our workshops and events may be in-person or online depending on the event. You’ll find the details on our Wellness Room page.
-          </li>
-          <li style={{ marginBottom: 18 }}>
-            <b>Do you offer consultations?</b><br />
-            Yes, we provide personalized wellness consultations to help you choose the best products, practices, and nutrition for your needs.
-          </li>
-          <li style={{ marginBottom: 18 }}>
-            <b>Can I subscribe for regular deliveries?</b><br />
-            Absolutely. We offer subscription plans for our wellness products so you never miss a dose of your favorites.
-          </li>
-          <li style={{ marginBottom: 0 }}>
-            <b>Do you have free resources?</b><br />
-            Yes. The Holistic Hub features a rotating free resource, plus premium guides, cookbooks, and self-care eBooks.
-          </li>
-        </ol>
-      </div>
-    </div>
-  );
-}
-function Contact() {
-  return (
-    <div style={{ padding: 40, maxWidth: 700, margin: '0 auto', fontFamily: 'Lora, Georgia, Times New Roman, serif', background: '#fff', borderRadius: 16, boxShadow: '0 2px 16px rgba(74,124,89,0.04)' }}>
-      <h2 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '2.2rem', color: '#4A7C59', marginBottom: 18, textAlign: 'center' }}>Let's Connect</h2>
-      <div style={{ fontSize: 16, color: '#222', marginBottom: 28, textAlign: 'center' }}>
-        We’d love to hear from you! Whether you have questions about our products, feedback on your experience, or just want to say hello — reach out anytime.
-      </div>
-      <div style={{ fontSize: 16, color: '#222', marginBottom: 24 }}>
-        <b>Phone</b><br />
-        <span role="img" aria-label="Phone">📞</span> (XXX) XXX-XXXX (Add your preferred business number here)
-      </div>
-      <div style={{ fontSize: 16, color: '#222', marginBottom: 24 }}>
-        <b>Email</b><br />
-        <span role="img" aria-label="Email">📩</span> hello@theholistictablebykb.com
-      </div>
-      <div style={{ fontSize: 16, color: '#222', marginBottom: 24 }}>
-        <b>Follow Us Online</b><br />
-        Stay connected for recipes, wellness tips, exclusive discounts, and product launches:<br />
-        <div style={{ marginTop: 8 }}>
-          <span style={{ display: 'block', marginBottom: 4 }}><b>Instagram:</b> @theholistictablebykb</span>
-          <span style={{ display: 'block', marginBottom: 4 }}><b>Facebook:</b> The Holistic Table by KB</span>
-          <span style={{ display: 'block', marginBottom: 4 }}><b>Pinterest:</b> HolisticTableByKB</span>
-          <span style={{ display: 'block', marginBottom: 4 }}><b>TikTok:</b> @theholistictablebykb</span>
-        </div>
-      </div>
-      <div style={{ fontSize: 16, color: '#222', marginBottom: 0 }}>
-        <b>Business Hours</b><br />
-        We aim to respond to all inquiries within 24–48 hours (Monday–Friday).
-      </div>
+      <div style={{ fontWeight: 600, color: '#4A7C59', marginBottom: 8, fontSize: '1.1rem' }}>What’s Inside Each Crate</div>
+      <ul style={{ color: '#4A7C59', fontSize: 15, marginBottom: 16, paddingLeft: 22, lineHeight: 1.7 }}>
+  <li>1 Wellness Tea Blend (4 oz)</li>
+        <li>1 Loose Herb (4 oz) with usage guide</li>
+  <li>1 Sea Moss Gel (16 oz, seasonal flavor)</li>
+        <li>1 Recipe Card featuring a nourishing meal or drink</li>
+        <li>1 Surprise Holistic Item (examples: mini smudge stick, bath soak, herbal salve, journal prompt set)</li>
+        <li>Exclusive Monthly Tip Sheet — herbal remedies, wellness rituals, seasonal self-care tips</li>
+      </ul>
+      <div style={{ fontWeight: 600, color: '#4A7C59', marginBottom: 8, fontSize: '1.1rem' }}>Subscription Options</div>
+      <ul style={{ color: '#4A7C59', fontSize: 15, marginBottom: 16, paddingLeft: 22, lineHeight: 1.7 }}>
+        <li><b>Monthly Ritual</b> (Billed Monthly): $45/month<br/>Free pickup in Colorado Springs<br/>$8 flat local delivery (no Denver)</li>
+        <li style={{ marginTop: 8 }}><b>Bi-Monthly Ritual</b> (Every 2 Months): $88 every 2 months (save $2)<br/>Same perks as monthly</li>
+        <li style={{ marginTop: 8 }}><b>Annual Ritual Membership</b> (Best Value): $480/year (save $60 — equivalent to 1 free crate + extra item in your birthday month)<br/>Early access to new products and seasonal limited runs</li>
+      </ul>
+      <div style={{ fontWeight: 600, color: '#4A7C59', marginBottom: 8, fontSize: '1.1rem' }}>Perks for Subscribers</div>
+      <ul style={{ color: '#4A7C59', fontSize: 15, marginBottom: 16, paddingLeft: 22, lineHeight: 1.7 }}>
+        <li>10% off all other Holistic Table products year-round</li>
+        <li>Priority restock access for limited herbs & seasonal Sea Moss</li>
+        <li>Invitation to exclusive online “Ritual Sessions” (mini wellness workshops)</li>
+      </ul>
+      <div style={{ fontWeight: 600, color: '#4A7C59', marginBottom: 8, fontSize: '1.1rem' }}>Cancellation & Pause Policy</div>
+      <div style={{ marginBottom: 16, color: '#222', fontSize: 15 }}>Cancel or pause up to 7 days before next billing date<br/>Refunds available if canceled within policy timeframe</div>
+      <div style={{ fontWeight: 600, color: '#4A7C59', marginBottom: 8, fontSize: '1.1rem' }}>Order & Delivery Schedule</div>
+  <div style={{ color: '#222', fontSize: 15, marginBottom: 16 }}>Order Deadline: 15th of each month<br/>Crates Ship/Deliver/Pick-up: Last week of the month<br/>This crate is shipped with normal rates.</div>
+            <a href="https://buy.stripe.com/fZu7sL2ZH4hpbM11Fu8IU01" target="_blank" rel="noopener noreferrer" style={{
+    display: 'inline-block',
+    background: '#4A7C59',
+    color: '#fff',
+    padding: '10px 32px',
+    borderRadius: 20,
+    textDecoration: 'none',
+    fontWeight: 700,
+    fontSize: '1.1rem',
+    marginTop: 8
+  }}>Order Now</a>
     </div>
   );
 }

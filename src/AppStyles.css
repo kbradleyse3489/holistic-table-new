@@ -1,3 +1,113 @@
+/* --- Mobile Responsive Enhancements --- */
+@media (max-width: 900px) {
+  .brand-title {
+    font-size: 2rem;
+  }
+  .brand-tagline {
+    font-size: 1rem;
+    padding: 0 8px;
+  }
+  .navbar {
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px 0;
+  }
+  .navbar-link {
+    font-size: 16px;
+    padding: 6px 0;
+  }
+}
+
+@media (max-width: 700px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    padding: 8px 0;
+  }
+  .navbar-logo {
+    width: 40px;
+    height: 40px;
+    margin-right: 0;
+    margin-bottom: 8px;
+  }
+  .brand-title {
+    font-size: 1.3rem;
+    margin: 18px 0 8px 0;
+  }
+  .brand-tagline {
+    font-size: 0.95rem;
+    margin-bottom: 18px;
+  }
+  section, .App section {
+    padding: 24px 0 24px 0 !important;
+  }
+  .navbar-link {
+    font-size: 15px;
+    padding: 4px 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .brand-title {
+    font-size: 1.1rem;
+  }
+  .brand-tagline {
+    font-size: 0.9rem;
+  }
+  .navbar {
+    padding: 6px 0;
+  }
+  .navbar-link {
+    font-size: 14px;
+  }
+  .navbar-logo {
+    width: 32px;
+    height: 32px;
+  }
+  section, .App section {
+    padding: 14px 0 14px 0 !important;
+  }
+  /* Responsive product cards and sections */
+  .App section, section {
+    padding-left: 4px !important;
+    padding-right: 4px !important;
+  }
+  .App .product-card, .product-card {
+    max-width: 98vw !important;
+    min-width: 0 !important;
+    margin: 0 auto 18px auto !important;
+    padding: 12px !important;
+  }
+  .App .featured-products, .featured-products {
+    flex-direction: column !important;
+    gap: 18px !important;
+  }
+  img, .App img {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+}
+
+/* Utility for flex wrap on product cards */
+.featured-products {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  justify-content: center;
+}
+.product-card {
+  background: #f8f8f8;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(74,124,89,0.06);
+  max-width: 340px;
+  flex: 1 1 300px;
+  padding: 24px;
+  text-align: center;
+  transition: box-shadow 0.2s;
+  cursor: pointer;
+  margin-bottom: 24px;
+}
 /* AppStyles.css - Custom styles for The Holistic Table by KB */
 
 body {
